@@ -59,7 +59,7 @@ _Step 6_
 
 Click the run button in Eclipse and your app should show up in the emulator.
 
-A Simple Web App
+##A Simple Web App
 
 In this section we are going to create a simple to-do list app. This app will run from our browser. Later on we will learn how to run this app on a mobile phone.
 
@@ -104,27 +104,6 @@ We achieve these app functionalities by embedding javascript code into the HTML 
 	</script>
 	</body>
 	</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Exercise 3
