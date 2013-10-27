@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>todo list</title>
+<link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<ul class="items">
+		<li class="item">Don't forget the milk</li>
+	</ul>
+	<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+<script>
+	$("#submit-btn").click(transfer);
+	function transfer(){
+		var item = $("#add-item").val();
+		$("ul").append("<li>" + item + "</li>")
+	}
+	$("ul").sortable({appendTo:"body"});
+</script>
+</body>
+</html>
