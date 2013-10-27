@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>todo list</title>
+</head>
+<body>
+
+<div class="container">
+	<ul>
+		<li class="item" >Don't forget the milk</li>
+	</ul>
+		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+<script>
+
+	$('#submit-btn').click(transfer);
+
+	function transfer(){
+		var item = $('#add-item').val();
+		$('ul').append('<li>' + item + '</li>');
+		striketru();
+	}
+
+	$('ul').sortable({appendTo:'body'});
+
+
+	//$('li').click(
+	//	function(){
+	//		$(this).css("text-decoration", "line-through");
+	//	}
+	//);
+
+	function striketru(){
+		$('li').click(
+			function(){
+				var curr = $(this);
+				if (curr.css('text-decoration') === 'none'){
+					console.log(curr.css('text-decoration'));
+					curr.css('text-decoration', 'line-through');
+				}
+			}
+		);
+	}
+
+	striketru();
+	
+</script>
+</body>
+</html>
