@@ -8,19 +8,21 @@
 
 <div class="container">
 	<ul>
-		<li id="item1" class="item" style="text-decoration:none" onclick="addStrikeThrough()" ><img id="img1" src="images/delete.png" class="del_image" onclick="addRemove()"></img>Don't forget the milk </li>
+		<li id="item0" class="item" style="text-decoration:none" onclick="addStrikeThrough()" ><img id="img1" src="images/delete.png" class="del_image" onclick="addRemove()"></img>Don't forget the milk </li>
 	</ul>
 		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 <script>
+
+	var count = 1;
 
 	retrieveFromStorage();
 	//$('#submit-btn').click(transfer);
 
 	//dynamically add an <li> element when the submit button is clicked
-	var count = 2;
+	
 	var submit_btn = document.getElementById('submit-btn'); //get the submit button
 	//attach a function to the submit button
 	submit_btn.onclick = function additem(){
@@ -56,8 +58,10 @@
 	function retrieveFromStorage(){
 		var ul_item = document.getElementsByTagName('ul');
 		for(index in localStorage){
-			//console.log(item);
-			var item_value = localStorage[index];
+			
+			var itemValue = localStorage[index];
+			var li;
+			/*
 			var li_element = document.createElement('li');
 			var img_element = document.createElement('img');
 			var text_element = document.createTextNode(item_value);
@@ -79,9 +83,40 @@
 			
 			li_element.onclick = strikethrough;
 			img_element.onclick = removeItem;
+			
 
 			ul_item[0].appendChild(li_element);
+			*/
+
+			li = createListElement("item" + count++, itemValue);
+			ul_item[0].appendChild(li);
 		}
+	}
+
+	function createListElement(id, value){
+		var li = document.createElement('li');
+		var img = document.createElement('img');
+		var text = document.createTextNode(value);
+
+		li.setAttribute("id", id);
+		li.setAttribute("class","item");
+		
+		img.setAttribute("src","images/delete.png");
+		img.setAttribute("class", "del_image");
+
+		li.appendChild(img);
+		li.appendChild(text);
+
+		li.addEventListener("touchstart", handleStart);
+		li.addEventListener("touchmove", handleMove);
+		li.addEventListener("touchend", handleEnd);
+		li.addEventListener("onclick", strikethrough);
+		img.addEventListener("onclick", removeItem);
+		img.addEventListener("touchstart", removeItem);
+
+		//img.onclick = removeItem;
+
+		return li;
 	}
 
 	function transfer(){
@@ -144,6 +179,14 @@
 
 	function removeItem(){
 		this.parentNode.setAttribute("style","display:none");
+
+		if (this.parentNode.id in localStorage){
+			localStorage.removeItem(this.parentNode.id); 
+		} else {
+			alert("whoa");
+		}
+		localStorage.removeItem(this.parentNode.id);
+		console.log(this.parentNode.id);
 	}
 
 	//function handleMove(e){
