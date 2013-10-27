@@ -16,9 +16,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 <script>
 
-	var count = 1;
-
 	retrieveFromStorage();
+	
+	
 	//$('#submit-btn').click(transfer);
 
 	//dynamically add an <li> element when the submit button is clicked
@@ -26,12 +26,15 @@
 	var submit_btn = document.getElementById('submit-btn'); //get the submit button
 	//attach a function to the submit button
 	submit_btn.onclick = function additem(){
+		var count = localStorage.length;
+		console.log(localStorage.length);
+
 		var item_value = document.getElementById('add-item').value;
 		var li_element = document.createElement('li');
 		var img_element = document.createElement('img');
 		var text_element = document.createTextNode(item_value);
 
-		li_element.setAttribute("id", "item" + count++);
+		li_element.setAttribute("id", "item" + (count + 1));
 		li_element.setAttribute("class","item");
 		img_element.setAttribute("src","images/delete.png");
 		img_element.setAttribute("class", "del_image");
@@ -57,6 +60,8 @@
 
 	function retrieveFromStorage(){
 		var ul_item = document.getElementsByTagName('ul');
+		var count = localStorage.length;
+
 		for(index in localStorage){
 			
 			var itemValue = localStorage[index];
@@ -88,7 +93,7 @@
 			ul_item[0].appendChild(li_element);
 			*/
 
-			li = createListElement("item" + count++, itemValue);
+			li = createListElement(index, itemValue);
 			ul_item[0].appendChild(li);
 		}
 	}
