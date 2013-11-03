@@ -8,7 +8,7 @@
 
 <div class="container">
 	<ul>
-		<li id="item0" class="item" style="text-decoration:none" onclick="addStrikeThrough()" ><img id="img1" src="images/delete.png" class="del_image" onclick="addRemove()"></img>Don't forget the milk </li>
+		<li id="item1" class="item" style="text-decoration:none" onclick="addStrikeThrough()" ><img id="img1" src="images/delete.png" class="del_image" onclick="removeItem()"></img>Don't forget the milk </li>
 	</ul>
 		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
@@ -26,16 +26,18 @@
 	var submit_btn = document.getElementById('submit-btn'); //get the submit button
 	//attach a function to the submit button
 	submit_btn.onclick = function additem(){
-		var count = localStorage.length;
-		console.log(localStorage.length);
+		//var count = localStorage.length;
+		var count = new Date().getTime();
+		console.log(count);
 
 		var item_value = document.getElementById('add-item').value;
 		var li_element = document.createElement('li');
 		var img_element = document.createElement('img');
 		var text_element = document.createTextNode(item_value);
 
-		li_element.setAttribute("id", "item" + (count + 1));
+		li_element.setAttribute("id", "item" + count);
 		li_element.setAttribute("class","item");
+
 		img_element.setAttribute("src","images/delete.png");
 		img_element.setAttribute("class", "del_image");
 
@@ -183,15 +185,10 @@
 	}
 
 	function removeItem(){
+		console.log(this);
+		console.log(this.parentNode);
 		this.parentNode.setAttribute("style","display:none");
-
-		if (this.parentNode.id in localStorage){
-			localStorage.removeItem(this.parentNode.id); 
-		} else {
-			alert("whoa");
-		}
 		localStorage.removeItem(this.parentNode.id);
-		console.log(this.parentNode.id);
 	}
 
 	//function handleMove(e){
