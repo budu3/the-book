@@ -10,13 +10,22 @@
 	</ul>
 		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <script>
-	$("#submit-btn").click(transfer);
-	function transfer(){
-		var item = $("#add-item").val();
-		$("ul").append("<li>" + item + "</li>")
+
+	//dynamically add an <li> element when the submit button is clicked
+	var submitButton = document.getElementById('submit-btn'); //get the submit button
+	//attach a function to the submit button
+	submitButton.onclick = addItem;
+
+	function addItem(){
+		var textInput = document.getElementById('add-item');
+		var item = textInput.value;
+		var ul = document.getElementsByTagName('ul');
+		ul[0].insertAdjacentHTML('beforeend','<li>' + item + '</li>'); 
+
 	}
+
 </script>
 </body>
 </html>

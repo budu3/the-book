@@ -12,99 +12,48 @@
 	</ul>
 		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 <script>
 
-	//$('#submit-btn').click(transfer);
-
 	//dynamically add an <li> element when the submit button is clicked
-	var submit_btn = document.getElementById('submit-btn'); //get the submit button
+	var submitButton = document.getElementById('submit-btn'); //get the submit button
 	//attach a function to the submit button
-	submit_btn.onclick = function additem(){
-		var item_value = document.getElementById('add-item').value;
-		var li_element = document.createElement('li');
-		var img_element = document.createElement('img');
-		var text_element = document.createTextNode(item_value);
+	submitButton.onclick = addItem;
 
-		li_element.setAttribute("class","item");
-		img_element.setAttribute("src","images/delete.png");
-		img_element.setAttribute("class", "del_image");
+	function addItem(){
+		var count = new Date().getTime();
+		var textInput = document.getElementById('add-item');
+		var item = textInput.value;
+		var ul = document.getElementsByTagName('ul');
+		var li;
+		var img;
+		//ul[0].insertAdjacentHTML('beforeend','<li>' + item + '</li>'); 
+		ul[0].insertAdjacentHTML('beforeend','<li id="item' + count +'" class="item"><img id="img' + count + '" src="images/delete.png" class="del_image"></img>' + item + '</li>');
 
-		li_element.appendChild(img_element);
-		li_element.appendChild(text_element);
+		li = document.getElementById('item' + count);
+		img = document.getElementById('img' + count);
 
-		var ul_item = document.getElementsByTagName('ul'); //this return an array of value so  we use [0]
-
-		//add touch listeners
-		li_element.addEventListener("touchstart", handleStart, false);
-		li_element.addEventListener("touchmove", handleMove, false);
-		li_element.addEventListener("touchend", handleEnd);
+		li.addEventListener("touchstart", handleStart);
+		li.addEventListener("touchmove", handleMove);
+		li.addEventListener("touchend", handleEnd);
 		
-		li_element.onclick = strikethrough;
-		img_element.onclick = removeItem;
+		li.onclick = strikeThrough;
+		img.onclick = removeItem;
 
-		ul_item[0].appendChild(li_element);
-		
 	}
 
-	function transfer(){
-		var item = $('#add-item').val();
-		$('ul').append('<li class="item"><img src="images/delete.png" class="del_image"></img>' + item + '</li>');
-		striketru();
-		remove();
-	}
-
-	$('ul').sortable({appendTo:'body'});
-
-	//function striketru(){
-	//	$('li').click(
-	//		function(){
-	//			var curr = $(this);
-	//			var toggleon;
-	//			var toggleoff;
-	//			if (curr.css('text-decoration') === 'none'){
-	//				console.log(curr.css('text-decoration'));
-	//				curr.css('text-decoration', 'line-through');
-	//			}
-	//		}
-	//	);
-	//}
-
-	function remove(){
-		$('.del_image').click(
-			function(){
-				var parent = $(this).parent();
-				$(parent).css('display', 'none');
-				console.log(parent);
-			}
-		);
-	}
-	
-
-	//striketru();
-	//remove();
-
-	//touchevents
-	var items = document.getElementsByClassName('item');
-	//items[0].addEventListener("touchstart", handleStart, false);
-	//items[0].addEventListener("touchmove", handleMove, false);
-
-	function handleStart(e){
+	function handleStart(event){
 		this.style.backgroundColor = "#FFFFCC";
 	}
 
-	function handleMove(e){
+	function handleMove(event){
 		this.style.backgroundColor = "#FFCC66";
 	}
 
-	function handleEnd(e){
+	function handleEnd(event){
 		this.style.backgroundColor = "#FFFFFF";
 	}
 
-	function strikethrough(){
-		console.log(this);
-
+	function strikeThrough(){
 		if (this.style.textDecoration == "none"){
 			this.style.textDecoration = "line-through";
 		}else{
@@ -112,23 +61,18 @@
 		}
 	}
 
+	function removeItem(){
+		this.parentNode.setAttribute("style","display:none");
+	}
+
+	
 	function addStrikeThrough(){
-		document.getElementById("item1").onclick=strikethrough;
+		document.getElementById("item1").onclick=strikeThrough;
 	}
 
 	function addRemove(){
 		document.getElementById("img1").onclick=removeItem;
 	}
-
-	function removeItem(){
-		this.parentNode.setAttribute("style","display:none");
-	}
-
-	//function handleMove(e){
-	//	items.forEach(function(){
-	//		alert('this');
-	//	});
-	//}
 	
 </script>
 </body>
