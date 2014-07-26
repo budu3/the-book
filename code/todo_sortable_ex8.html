@@ -23,35 +23,18 @@
 	//attach a function to the submit button
 	submit_btn.onclick = function additem(){
 		var count = new Date().getTime();
+		var textInput = document.getElementById('add-item');
+		var item = textInput.value;
+		var ul = document.getElementsByTagName('ul');
+		var li;
+		var img;
 
-		var item_value = document.getElementById('add-item').value;
-		var li_element = document.createElement('li');
-		var img_element = document.createElement('img');
-		var text_element = document.createTextNode(item_value);
+		ul[0].insertAdjacentHTML('beforeend','<li id="item' + count +'" class="item"><img src="images/delete.png" class="del_image">' + item + '</li>');
 
-		li_element.setAttribute("id", "item" + count);
-		li_element.setAttribute("class","item");
-
-		img_element.setAttribute("src","images/delete.png");
-		img_element.setAttribute("class", "del_image");
-
-		li_element.appendChild(img_element);
-		li_element.appendChild(text_element);
-
-		var ul_item = document.getElementsByTagName('ul'); //this return an array of value so  we use [0]
-
-		//add touch listeners
-		li_element.addEventListener("touchstart", handleStart, false);
-		li_element.addEventListener("touchmove", handleMove, false);
-		li_element.addEventListener("touchend", handleEnd);
+		li = document.getElementById('item' + count);
 		
-		li_element.onclick = strikethrough;
-		img_element.onclick = removeItem;
-
-		ul_item[0].appendChild(li_element);
-
-		localStorage.setItem(li_element.id, item_value);
-		
+		li.onclick = strikeThrough;
+		li.onclick = sort;
 	}
 
 	function retrieveFromStorage(){
@@ -84,8 +67,8 @@
 		li.addEventListener("touchstart", handleStart);
 		li.addEventListener("touchmove", handleMove);
 		li.addEventListener("touchend", handleEnd);
-		li.addEventListener("onclick", strikethrough);
-		li.addEventListener("touchstart", strikethrough);
+		li.addEventListener("onclick", strikeThrough);
+		li.addEventListener("touchstart", strikeThrough);
 		img.addEventListener("onclick", removeItem);
 		img.addEventListener("touchstart", removeItem);
 
@@ -104,8 +87,8 @@
 		this.style.backgroundColor = "#FFFFFF";
 	}
 
-	function strikethrough(){
-		console.log(this);
+	function strikeThrough(){
+		//console.log(this);
 
 		if (this.style.textDecoration == "none"){
 			this.style.textDecoration = "line-through";
@@ -123,13 +106,19 @@
 	}
 
 	function removeItem(){
-		console.log(this.parentNode);
+		//console.log(this.parentNode);
 		this.parentNode.setAttribute("style","display:none");
 		localStorage.removeItem(this.parentNode.id);
 	}
 
 	function attachFunction(funct){
 		document.getElementById("item1").onclick = funct;
+	}
+
+	function sort(){
+		// sort the ul array
+		ul = document.getElementsByTagName('ul');
+		console.log(ul[0]);
 	}
 	
 </script>

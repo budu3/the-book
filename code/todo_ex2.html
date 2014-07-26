@@ -9,15 +9,22 @@
 	<ul class="items">
 		<li class="item">Don't forget the milk</li>
 	</ul>
-	<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
+	<input type="text" id="add-item"></input>
+	<input type="submit" id="submit-btn"></input>
 </div>
 <script>
-	$("#submit-btn").click(transfer);
-	function transfer(){
-		var item = $("#add-item").val();
-		$("ul").append("<li>" + item + "</li>")
+	var submit_btn = document.getElementById('submit-btn');
+
+	submit_btn.addEventListener("click", additem);
+
+	function additem(){
+
+		var textInput = document.getElementById('add-item');
+		var value = textInput.value;
+		var ul = document.getElementsByTagName('ul');
+
+		ul[0].insertAdjacentHTML('beforeend','<li class="item">' + value + '</li>');
 	}
-	$("ul").sortable({appendTo:"body"});
 </script>
 </body>
 </html>
