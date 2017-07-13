@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Myflix</title>
+  <meta charset="utf-8">
+  <meta name="viewport"
+     content="width=device-width, initial-scale=1, user-scalable=yes">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <script src="https://use.fontawesome.com/bf9fd95398.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: black;
+    }
+    h1, .next-btn, .prev-btn{
+      color: white;
+      font-size: 24px;
+    }
+
+    .logo {
+      padding-top: 20px;
+    }
+    
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="navbar"><img class="img-responsive logo" src="images/myflix_icon.jpg"></img></div>
+
+  <div class="row">
+      
+      <div class="col-xs-12 clip"><img class="img-responsive img" src="images/bb01.jpg"></img></div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12"><h1>Favorites</h1></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
+    <div class="col-xs-10">
+      <div id="scroll-1" class="row">
+        <div class="col-xs-6"><img class="img-responsive" src="images/tt37.jpg"></img></div>
+        <div class="col-xs-6"><img class="img-responsive" src="images/tt38.jpg"></img></div>
+      </div>
+    </div>
+    <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right"></i></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12"><h1>Drama</h1></div>
+  </div>
+  <div class="row">
+      <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
+      <div class="col-xs-10">
+        <div id="scroll-2" class="row">
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt39.jpg"></img></div>
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt40.jpg"></img></div>
+        </div>
+      </div>
+      <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right"></i></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12"><h1>Action</h1></div>
+  </div>
+  <div class="row">
+      <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
+      <div class="col-xs-10">
+        <div id="scroll-3" class="row">
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt41.jpg"></img></div>
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt42.jpg"></img></div>
+        </div>
+      </div>
+      <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+  </div>
+  <footer class="footer">
+    <div>Privacy Statement</div>
+  </footer>
+</div>
+<script type="text/javascript">
+
+      var leftButtons = document.getElementsByClassName("next-btn");
+      var rightButtons = document.getElementsByClassName("prev-btn");
+
+      for (var i=0; i < leftButtons.length; i++){
+        leftButtons[i].addEventListener("touchstart", function(e){
+          var el = this.nextElementSibling;
+          moveLeft(el);
+        })
+      }
+
+      for (var i=0; i < rightButtons.length; i++){
+        rightButtons[i].addEventListener("touchstart", function(){
+          var el = this.previousElementSibling;
+          moveRight(el);
+        })
+      }
+
+      function moveLeft(element){
+
+        element.firstElementChild.append(element.firstElementChild.firstElementChild);
+      
+      }
+
+      function moveRight(element){
+
+        element.firstElementChild.prepend(element.firstElementChild.lastElementChild);
+
+      }
+</script>
+ 
+</body>
+</html>
