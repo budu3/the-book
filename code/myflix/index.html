@@ -77,6 +77,7 @@
     <div>Privacy Statement</div>
   </footer>
 </div>
+<div id="demo"></div>
 <script type="text/javascript">
 
       var leftButtons = document.getElementsByClassName("next-btn");
@@ -107,7 +108,21 @@
         element.firstElementChild.prepend(element.firstElementChild.lastElementChild);
 
       }
+
+      loadData();
+
+      function loadData(){
+        alert("This is it");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerHTML =
+            this.responseText;
+          }
+        };
+        xhttp.open("GET", "movies.json", true);
+        xhttp.send();
+      }
 </script>
- 
 </body>
 </html>
