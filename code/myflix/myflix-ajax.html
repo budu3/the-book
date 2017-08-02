@@ -40,7 +40,7 @@
   <div class="row">
     <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
     <div class="col-xs-10">
-      <div id="scroll-1" class="row">
+      <div id="scroll-1" class="row img-row">
         <div class="col-xs-6"><img class="img-responsive" src="images/tt37.jpg"></img></div>
         <div class="col-xs-6"><img class="img-responsive" src="images/tt38.jpg"></img></div>
       </div>
@@ -53,7 +53,7 @@
   <div class="row">
       <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
       <div class="col-xs-10">
-        <div id="scroll-2" class="row">
+        <div id="scroll-2" class="row img-row">
           <div class="col-xs-6"><img class="img-responsive" src="images/tt39.jpg"></img></div>
           <div class="col-xs-6"><img class="img-responsive" src="images/tt40.jpg"></img></div>
         </div>
@@ -66,7 +66,7 @@
   <div class="row">
       <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
       <div class="col-xs-10">
-        <div id="scroll-3" class="row">
+        <div id="scroll-3" class="row img-row">
           <div class="col-xs-6"><img class="img-responsive" src="images/tt41.jpg"></img></div>
           <div class="col-xs-6"><img class="img-responsive" src="images/tt42.jpg"></img></div>
         </div>
@@ -119,10 +119,27 @@
             //this.responseText;
             var obj = JSON.parse(this.responseText);
             document.getElementById("demo").innerHTML = obj[0].poster;
+            loadImages(obj);
           }
         };
         xhttp.open("GET", "https://raw.githubusercontent.com/budu3/the-book/master/code/myflix/movies.json", true);
         xhttp.send();
+      }
+
+      function loadImages(obj){
+        var els = document.getElementsByClassName("img-row");
+        for (var i=0; i< els.length; i++){
+          var el = els[i];
+
+          for (var j=0; j < obj.length; j++){
+            var img = document.createElement("img");
+            img.setAttribute("src", obj[j].poster);
+            img.setAttribute("class", "mg-responsive");
+            el.append(img);
+          } 
+
+          
+        }
       }
 </script>
 </body>
