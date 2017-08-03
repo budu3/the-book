@@ -21,6 +21,19 @@
     .logo {
       padding-top: 20px;
     }
+
+    .hide {
+      display: hidden;
+    }
+
+    .unhide {
+      display: block;
+    }
+
+    img{
+      max-height: 179px;
+      max-width: 120px;
+    }
     
   </style>
 </head>
@@ -100,12 +113,18 @@
       function moveLeft(element){
 
         element.firstElementChild.append(element.firstElementChild.firstElementChild);
+        if (element.firstElementChild.getAttribute("class") === "hide"){
+          element.firstElementChild.setAttribute("class", "mg-responsive");
+        }
       
       }
 
       function moveRight(element){
 
         element.firstElementChild.prepend(element.firstElementChild.lastElementChild);
+        if (element.firstElementChild.getAttribute("class") === "hide"){
+          element.firstElementChild.setAttribute("class", "mg-responsive");
+        }
 
       }
 
@@ -135,6 +154,11 @@
             var img = document.createElement("img");
             img.setAttribute("src", obj[j].poster);
             img.setAttribute("class", "mg-responsive");
+            if (j > 1){
+              img.removeAttribute("class");
+              img.setAttribute("class", "hide");
+              console.log("I got here");
+            }
             el.append(img);
           } 
 
