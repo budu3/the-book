@@ -30,7 +30,7 @@
       display: block;
     }
 
-    img{
+    .poster{
       max-height: 179px;
       max-width: 120px;
     }
@@ -54,8 +54,7 @@
     <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
     <div class="col-xs-10">
       <div id="scroll-1" class="row img-row">
-        <div class="col-xs-6"><img class="img-responsive" src="images/tt37.jpg"></img></div>
-        <div class="col-xs-6"><img class="img-responsive" src="images/tt38.jpg"></img></div>
+        <!-- dynamic elements go here -->
       </div>
     </div>
     <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right"></i></div>
@@ -67,8 +66,7 @@
       <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
       <div class="col-xs-10">
         <div id="scroll-2" class="row img-row">
-          <div class="col-xs-6"><img class="img-responsive" src="images/tt39.jpg"></img></div>
-          <div class="col-xs-6"><img class="img-responsive" src="images/tt40.jpg"></img></div>
+          <!-- dynamic elements go here -->
         </div>
       </div>
       <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right"></i></div>
@@ -80,8 +78,7 @@
       <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
       <div class="col-xs-10">
         <div id="scroll-3" class="row img-row">
-          <div class="col-xs-6"><img class="img-responsive" src="images/tt41.jpg"></img></div>
-          <div class="col-xs-6"><img class="img-responsive" src="images/tt42.jpg"></img></div>
+          <!-- dynamic elements go here -->
         </div>
       </div>
       <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
@@ -95,6 +92,7 @@
 
       var leftButtons = document.getElementsByClassName("next-btn");
       var rightButtons = document.getElementsByClassName("prev-btn");
+      var obj;
 
       for (var i=0; i < leftButtons.length; i++){
         leftButtons[i].addEventListener("touchstart", function(e){
@@ -112,19 +110,33 @@
 
       function moveLeft(element){
 
-        element.firstElementChild.append(element.firstElementChild.firstElementChild);
-        if (element.firstElementChild.getAttribute("class") === "hide"){
-          element.firstElementChild.setAttribute("class", "mg-responsive");
-        }
+        var slider = element.firstElementChild;
+        var firstItem = slider.firstElementChild; //first element in the slider
+
+        //hide the first item
+        firstItem.classList.add("hide");
+        firstItem.classList.remove("unhide");
+
+        //move first element to the end of the slider
+        slider.append(firstItem);
+
+        //unhide the first element's sibling 
+        slider.firstElementChild.nextElementSibling.classList.add("unhide");
+        slider.firstElementChild.nextElementSibling.classList.remove("hide");
       
       }
 
       function moveRight(element){
 
-        element.firstElementChild.prepend(element.firstElementChild.lastElementChild);
-        if (element.firstElementChild.getAttribute("class") === "hide"){
-          element.firstElementChild.setAttribute("class", "mg-responsive");
-        }
+        var slider = element.firstElementChild;
+
+        slider.lastElementChild.classList.add("unhide");
+        slider.lastElementChild.classList.remove("hide");
+
+        slider.firstElementChild.nextElementSibling.classList.add("hide");
+        slider.firstElementChild.nextElementSibling.classList.add("unhide");
+
+        slider.prepend(element.firstElementChild.lastElementChild);
 
       }
 
@@ -134,9 +146,8 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-            //document.getElementById("demo").innerHTML =
-            //this.responseText;
-            var obj = JSON.parse(this.responseText);
+   
+               obj = JSON.parse(this.responseText);
             document.getElementById("demo").innerHTML = obj[0].poster;
             loadImages(obj);
           }
@@ -146,20 +157,28 @@
       }
 
       function loadImages(obj){
-        var els = document.getElementsByClassName("img-row");
-        for (var i=0; i< els.length; i++){
-          var el = els[i];
+
+
+        var rows = document.getElementsByClassName("img-row");
+        for (var i=0; i< rows.length; i++){
+          var row = rows[i];
 
           for (var j=0; j < obj.length; j++){
+            
+            var div = document.createElement("div");
+            div.setAttribute("class", "col-xs-6 hide");
+
             var img = document.createElement("img");
             img.setAttribute("src", obj[j].poster);
-            img.setAttribute("class", "mg-responsive");
-            if (j > 1){
-              img.removeAttribute("class");
-              img.setAttribute("class", "hide");
-              console.log("I got here");
+            img.setAttribute("class", "mg-responsive poster");
+            
+            if (j < 2){
+              div.classList.remove("hide");
+              div.classList.add("unhide");
             }
-            el.append(img);
+            
+            div.append(img);
+            row.append(div);
           } 
 
           
