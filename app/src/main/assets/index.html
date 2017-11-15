@@ -5,81 +5,32 @@
 <link href="css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
 <div class="container">
-	<ul>
-		<li id="item1" class="item" style="text-decoration:none" onclick="attachFunction(strikeThrough)" ><img id="img1" src="images/delete.png" class="del_image" onclick="document.getElementById('item1').setAttribute('style','display:none')"></img>Don't forget the milk </li>
-	</ul>
-		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
+    <ul>
+        <li class="item">Don't forget the milk</li>
+    </ul>
+        <input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
+
 <script>
+    //dynamically add an <li> element when the submit button is clicked
+    var submitButton = document.getElementById('submit-btn'); //get the submit button
+    //attach a function to the submit button
+    submitButton.onclick = addItem;
 
-	//retrieve items from local storage
-	//retrieveFromStorage();
+    function addItem(){
+        var textInput = document.getElementById('add-item');
+        var item = textInput.value;
+        
+        var node = document.getElementsByTagName('html'); //returns the topmost html node in an array
+        var html = node[0];
+        var body = html.childNodes[2];
+        var div = body.childNodes[1];
+        var ul = div.childNodes[1];
 
-	//dynamically add an <li> element when the submit button is clicked
-	
-	var submit_btn = document.getElementById('submit-btn'); //get the submit button
-	//attach a function to the submit button
-	submit_btn.onclick = function additem(){
-		var count = new Date().getTime();
-		var textInput = document.getElementById('add-item');
-		var item = textInput.value;
-		var ul = document.getElementsByTagName('ul');
-		var li;
-		var img;
-		
-		ul[0].insertAdjacentHTML('beforeend','<li id="item' + count +'" class="item"><img id="img' + count + '" src="images/delete.png" class="del_image"></img>' + item + '</li>');
+        ul.insertAdjacentHTML('beforeend','<li>' + item + '</li>');
+    }
 
-		li = document.getElementById('item' + count);
-		img = document.getElementById('img' + count);
-
-		li.addEventListener("touchstart", handleStart);
-		li.addEventListener("touchmove", handleMove);
-		li.addEventListener("touchend", handleEnd);
-		
-		li.onclick = strikeThrough;
-		img.onclick = removeItem;
-	}
-
-
-	function handleStart(e){
-		this.style.backgroundColor = "#FFFFCC";
-	}
-
-	function handleMove(e){
-		this.style.backgroundColor = "#FFCC66";
-	}
-
-	function handleEnd(e){
-		this.style.backgroundColor = "#FFFFFF";
-	}
-
-	function strikeThrough(){
-		if (this.style.textDecoration == "none"){
-			this.style.textDecoration = "line-through";
-		}else{
-			this.style.textDecoration = "none";
-		}
-	}
-
-	function addStrikeThrough(){
-		document.getElementById("item1").onclick = strikethrough;
-	}
-
-	function addRemoveItem(){
-		document.getElementById("img1").onclick = removeItem;
-	}
-
-	function removeItem(){
-		this.parentNode.setAttribute("style","display:none");
-		localStorage.removeItem(this.parentNode.id);
-	}
-
-	function attachFunction(funct){
-		document.getElementById("item1").onclick = funct;
-	}
-	
 </script>
 </body>
 </html>
