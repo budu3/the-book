@@ -2,29 +2,51 @@
 <html>
 <head>
 <title>todo list</title>
-<link href="css/main.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 <div class="container">
-	<ul class="items">
-		<li class="item">Don't forget the milk</li>
+	<ul>
+		<li id="item1" class="item" style="text-decoration:none" onclick="attachFunction(strikeThrough)">Don't forget the milk</li>
 	</ul>
-	<input type="text" id="add-item"></input>
-	<input type="submit" id="submit-btn"></input>
+		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
+
 <script>
-	var submit_btn = document.getElementById('submit-btn');
 
-	submit_btn.addEventListener("click", additem);
+	//dynamically add an <li> element when the submit button is clicked
+	var submitButton = document.getElementById('submit-btn'); //get the submit button
+	//attach a function to the submit button
+	submitButton.addEventListener("click", addItem);
 
-	function additem(){
-
+	function addItem(){
+		var count = new Date().getTime();
 		var textInput = document.getElementById('add-item');
-		var value = textInput.value;
+		var item = textInput.value;
 		var ul = document.getElementsByTagName('ul');
+		var li;
+		var img;
 
-		ul[0].insertAdjacentHTML('beforeend','<li class="item">' + value + '</li>');
+		ul[0].insertAdjacentHTML('beforeend','<li id="item' + count +'" class="item">' + item + '</li>');
+
+		li = document.getElementById('item' + count);
+		
+		li.addEventListener("click", strikeThrough);
 	}
+
+	function strikeThrough(){
+		if (this.style.textDecoration == "none"){
+			this.style.textDecoration = "line-through";
+		}else{
+			this.style.textDecoration = "none";
+		}
+	}
+	
+	function attachFunction(st){
+		document.getElementById("item1").onclick = st;
+	}
+	
 </script>
 </body>
 </html>
