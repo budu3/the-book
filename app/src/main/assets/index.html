@@ -1,6 +1,30 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Hello</title>
+<title>todo list</title>
+<link href="css/main.css" rel="stylesheet">
 </head>
-<body>Hello</body>
+<body>
+<div class="container">
+	<ul class="items">
+		<li class="item">Don't forget the milk</li>
+	</ul>
+	<input type="text" id="add-item"></input>
+	<input type="submit" id="submit-btn"></input>
+</div>
+<script>
+	var submit_btn = document.getElementById('submit-btn');
+
+	submit_btn.addEventListener("click", additem);
+
+	function additem(){
+
+		var textInput = document.getElementById('add-item');
+		var value = textInput.value;
+		var ul = document.getElementsByTagName('ul');
+
+		ul[0].insertAdjacentHTML('beforeend','<li class="item">' + value + '</li>');
+	}
+</script>
+</body>
 </html>
