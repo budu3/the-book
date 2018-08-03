@@ -8,27 +8,25 @@
 
 <div class="container">
 	<ul>
-		<li id="item1" class="item" style="text-decoration:none" onclick="attachFunction(strikeThrough)" ><img id="img1" src="images/delete.png" class="del_image" onclick="document.getElementById('item1').setAttribute('style','display:none')"></img>Don't forget the milk </li>
+		<li id="item1" class="item" style="text-decoration:none" onclick="addStrikeThrough()" ><img id="img1" src="images/delete.png" class="del_image" onclick="addRemove()"></img>Don't forget the milk </li>
 	</ul>
 		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
 <script>
 
-	//retrieve items from local storage
-	//retrieveFromStorage();
-
 	//dynamically add an <li> element when the submit button is clicked
-	
-	var submit_btn = document.getElementById('submit-btn'); //get the submit button
+	var submitButton = document.getElementById('submit-btn'); //get the submit button
 	//attach a function to the submit button
-	submit_btn.onclick = function additem(){
+	submitButton.onclick = addItem;
+
+	function addItem(){
 		var count = new Date().getTime();
 		var textInput = document.getElementById('add-item');
 		var item = textInput.value;
 		var ul = document.getElementsByTagName('ul');
 		var li;
 		var img;
-		
+		//ul[0].insertAdjacentHTML('beforeend','<li>' + item + '</li>'); 
 		ul[0].insertAdjacentHTML('beforeend','<li id="item' + count +'" class="item"><img id="img' + count + '" src="images/delete.png" class="del_image"></img>' + item + '</li>');
 
 		li = document.getElementById('item' + count);
@@ -40,18 +38,18 @@
 		
 		li.onclick = strikeThrough;
 		img.onclick = removeItem;
+
 	}
 
-
-	function handleStart(e){
+	function handleStart(event){
 		this.style.backgroundColor = "#FFFFCC";
 	}
 
-	function handleMove(e){
+	function handleMove(event){
 		this.style.backgroundColor = "#FFCC66";
 	}
 
-	function handleEnd(e){
+	function handleEnd(event){
 		this.style.backgroundColor = "#FFFFFF";
 	}
 
@@ -63,21 +61,17 @@
 		}
 	}
 
-	function addStrikeThrough(){
-		document.getElementById("item1").onclick = strikethrough;
-	}
-
-	function addRemoveItem(){
-		document.getElementById("img1").onclick = removeItem;
-	}
-
 	function removeItem(){
 		this.parentNode.setAttribute("style","display:none");
-		localStorage.removeItem(this.parentNode.id);
 	}
 
-	function attachFunction(funct){
-		document.getElementById("item1").onclick = funct;
+	
+	function addStrikeThrough(){
+		document.getElementById("item1").onclick=strikeThrough;
+	}
+
+	function addRemove(){
+		document.getElementById("img1").onclick=removeItem;
 	}
 	
 </script>
