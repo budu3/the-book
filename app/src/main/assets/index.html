@@ -7,131 +7,147 @@
 <body>
 
 <div class="container">
-	<ul>
-		<li id="item1" class="item" style="text-decoration:none" onclick="attachFunction(strikethrough)" ><img id="img1" src="images/delete.png" class="del_image" onclick="attachFunction(removeItem)"></img>Don't forget the milk </li>
-	</ul>
-		<input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
+  <ul>
+
+  </ul>
+    <input type="text" id="add-item"></input><input type="submit" id="submit-btn"></input>
 </div>
 <script>
 
-	//retrieve items from local storage
-	retrieveFromStorage();
+  //retrieve items from local storage
+  retrieveFromStorage();
 
-	//dynamically add an <li> element when the submit button is clicked
-	
-	var submit_btn = document.getElementById('submit-btn'); //get the submit button
-	//attach a function to the submit button
-	submit_btn.onclick = function additem(){
-		var count = new Date().getTime();
+  //dynamically add an <li> element when the submit button is clicked
+  
+  var submit_btn = document.getElementById('submit-btn'); //get the submit button
+  //attach a function to the submit button
+  submit_btn.onclick = function additem(){
+    var count = new Date().getTime();
+    var textInput = document.getElementById('add-item');
+    var item = textInput.value;
+    var ul = document.getElementsByTagName('ul');
+    var li;
+    var img;
 
-		var item_value = document.getElementById('add-item').value;
-		var li_element = document.createElement('li');
-		var img_element = document.createElement('img');
-		var text_element = document.createTextNode(item_value);
+    createListElement(count,item);
+    localStorage.setItem(count, item);
+  }
 
-		li_element.setAttribute("id", "item" + count);
-		li_element.setAttribute("class","item");
+  function retrieveFromStorage(){
+    var ul_item = document.getElementsByTagName('ul');
 
-		img_element.setAttribute("src","images/delete.png");
-		img_element.setAttribute("class", "del_image");
+    for(index in localStorage){
+      
+      var itemValue = localStorage[index];
+      var li;
 
-		li_element.appendChild(img_element);
-		li_element.appendChild(text_element);
+      li = createListElement(index, itemValue);
+    }
+  }
 
-		var ul_item = document.getElementsByTagName('ul'); //this return an array of value so  we use [0]
+  
+  function createListElement(id, value){
+    var textInput = document.getElementById('add-item');
+    var ul = document.getElementsByTagName('ul');
+    var li;
+    var img;
 
-		//add touch listeners
-		li_element.addEventListener("touchstart", handleStart, false);
-		li_element.addEventListener("touchmove", handleMove, false);
-		li_element.addEventListener("touchend", handleEnd);
-		
-		li_element.onclick = strikethrough;
-		img_element.onclick = removeItem;
+    ul[0].insertAdjacentHTML('beforeend','<li id="' + id +'" class="item">' + value + '</li>');
 
-		ul_item[0].appendChild(li_element);
+    li = document.getElementById(id);
 
-		localStorage.setItem(li_element.id, item_value);
-		
-	}
+    li.addEventListener("touchstart", handleStart);
+    li.addEventListener("touchmove", handleMove);
+    li.addEventListener("touchend", handleEnd);
 
-	function retrieveFromStorage(){
-		var ul_item = document.getElementsByTagName('ul');
+    swipe(li);
+    
+    li.onclick = strikeThrough;
+    li.addEventListener("touchstart", strikeThrough);
+  }
+  
 
-		for(index in localStorage){
-			
-			var itemValue = localStorage[index];
-			var li;
+  function handleStart(e){
+    e.preventDefault();
+    this.style.backgroundColor = "#FFFFCC";
+  }
 
-			li = createListElement(index, itemValue);
-			ul_item[0].appendChild(li);
-		}
-	}
+  function handleMove(e){
+    e.preventDefault();
+    this.style.backgroundColor = "#FFCC66";
+  }
 
-	function createListElement(id, value){
-		var li = document.createElement('li');
-		var img = document.createElement('img');
-		var text = document.createTextNode(value);
+  function handleEnd(e){
+    e.preventDefault();
+    this.style.backgroundColor = "#FFFFFF";
+  }
 
-		li.setAttribute("id", id);
-		li.setAttribute("class","item");
-		
-		img.setAttribute("src","images/delete.png");
-		img.setAttribute("class", "del_image");
+  function strikeThrough(e){
+    e.preventDefault();
 
-		li.appendChild(img);
-		li.appendChild(text);
+    if (this.style.textDecoration == "none"){
+      this.style.textDecoration = "line-through";
+    }else{
+      this.style.textDecoration = "none";
+    }
+  }
 
-		li.addEventListener("touchstart", handleStart);
-		li.addEventListener("touchmove", handleMove);
-		li.addEventListener("touchend", handleEnd);
-		li.addEventListener("onclick", strikethrough);
-		li.addEventListener("touchstart", strikethrough);
-		img.addEventListener("onclick", removeItem);
-		img.addEventListener("touchstart", removeItem);
+  function swipe(element){
+    var startx;
+    var dist;
+    var delta;
 
-		return li;
-	}
+    element.addEventListener('touchstart',function(e){
+      e.preventDefault();
+      startx = parseInt(e.changedTouches[0].pageX);
+    });
 
-	function handleStart(e){
-		this.style.backgroundColor = "#FFFFCC";
-	}
+    element.addEventListener('touchmove', function(e){
+      e.preventDefault();
+      var x = parseInt(e.changedTouches[0].pageX);
+      dist = x - startx;
 
-	function handleMove(e){
-		this.style.backgroundColor = "#FFCC66";
-	}
+      move(element,dist,0);
+    });
 
-	function handleEnd(e){
-		this.style.backgroundColor = "#FFFFFF";
-	}
+    element.addEventListener('touchend', function(e){
+      if (dist > 100){
+        localStorage.removeItem(this.id);
+        animate(element, 4);
+      }else{
+        delta = (dist * -1)/2;
+        move(element,dist * -1,50);
+        move(element,0,0);
+      }
+    })
+  }
 
-	function strikethrough(){
-		console.log(this);
+  function move(element, dist, speed){
+      element.style.transitionDuration = speed + 'ms';
+      element.style.webkitTransform = 'translate(' + dist + 'px,0)';
+  }
 
-		if (this.style.textDecoration == "none"){
-			this.style.textDecoration = "line-through";
-		}else{
-			this.style.textDecoration = "none";
-		}
-	}
+  function slide(e) {
 
-	function addStrikeThrough(){
-		document.getElementById("item1").onclick = strikethrough;
-	}
+    var speed = 10;
+    var dist = 1000;
 
-	function addRemoveItem(){
-		document.getElementById("img1").onclick = removeItem;
-	}
+    this.style.transform = 'translateX(10px)';
+      this.style.transitionDuration = speed + 'ms';
+      this.style.webkitTransform = 'translate(' + dist + 'px,0)' + 'translateZ(0)';
+  }
 
-	function removeItem(){
-		console.log(this.parentNode);
-		this.parentNode.setAttribute("style","display:none");
-		localStorage.removeItem(this.parentNode.id);
-	}
 
-	function attachFunction(funct){
-		document.getElementById("item1").onclick = funct;
-	}
-	
+  function animate(element, speed){
+    var children = element.childNodes;
+
+    element.style.setProperty('-webkit-transition', 'all 0.5s');
+    element.style.setProperty('height', '0px');
+    element.style.setProperty('padding', '0px');
+    element.style.setProperty('border', '0px');
+    element.removeChild(children[0]); //remove text node
+  }
+  
 </script>
 </body>
 </html>
