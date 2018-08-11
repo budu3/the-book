@@ -21,19 +21,6 @@
     .logo {
       padding-top: 20px;
     }
-
-    .hide {
-      display: hidden;
-    }
-
-    .unhide {
-      display: block;
-    }
-
-    .poster{
-      max-height: 179px;
-      max-width: 120px;
-    }
     
   </style>
 </head>
@@ -53,8 +40,9 @@
   <div class="row">
     <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
     <div class="col-xs-10">
-      <div id="scroll-1" class="row img-row">
-        <!-- dynamic elements go here -->
+      <div id="scroll-1" class="row">
+        <div class="col-xs-6"><img class="img-responsive" src="images/tt37.jpg"></img></div>
+        <div class="col-xs-6"><img class="img-responsive" src="images/tt38.jpg"></img></div>
       </div>
     </div>
     <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right"></i></div>
@@ -65,8 +53,9 @@
   <div class="row">
       <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
       <div class="col-xs-10">
-        <div id="scroll-2" class="row img-row">
-          <!-- dynamic elements go here -->
+        <div id="scroll-2" class="row">
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt39.jpg"></img></div>
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt40.jpg"></img></div>
         </div>
       </div>
       <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right"></i></div>
@@ -77,8 +66,9 @@
   <div class="row">
       <div class="col-xs-1 next-btn"><i class="fa fa-chevron-left"></i></div>
       <div class="col-xs-10">
-        <div id="scroll-3" class="row img-row">
-          <!-- dynamic elements go here -->
+        <div id="scroll-3" class="row">
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt41.jpg"></img></div>
+          <div class="col-xs-6"><img class="img-responsive" src="images/tt42.jpg"></img></div>
         </div>
       </div>
       <div class="col-xs-1 prev-btn"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
@@ -92,7 +82,6 @@
 
       var leftButtons = document.getElementsByClassName("next-btn");
       var rightButtons = document.getElementsByClassName("prev-btn");
-      var obj;
 
       for (var i=0; i < leftButtons.length; i++){
         leftButtons[i].addEventListener("touchstart", function(e){
@@ -110,80 +99,16 @@
 
       function moveLeft(element){
 
-        var slider = element.firstElementChild;
-        var firstItem = slider.firstElementChild; //first element in the slider
-
-        //hide the first item
-        firstItem.classList.add("hide");
-        firstItem.classList.remove("unhide");
-
-        //move first element to the end of the slider
-        slider.append(firstItem);
-
-        //unhide the first element's sibling 
-        slider.firstElementChild.nextElementSibling.classList.add("unhide");
-        slider.firstElementChild.nextElementSibling.classList.remove("hide");
+        element.firstElementChild.append(element.firstElementChild.firstElementChild);
       
       }
 
       function moveRight(element){
 
-        var slider = element.firstElementChild;
-
-        slider.lastElementChild.classList.add("unhide");
-        slider.lastElementChild.classList.remove("hide");
-
-        slider.firstElementChild.nextElementSibling.classList.add("hide");
-        slider.firstElementChild.nextElementSibling.classList.add("unhide");
-
-        slider.prepend(element.firstElementChild.lastElementChild);
+        element.firstElementChild.prepend(element.firstElementChild.lastElementChild);
 
       }
 
-      loadData();
-
-      function loadData(){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-   
-               obj = JSON.parse(this.responseText);
-            document.getElementById("demo").innerHTML = obj[0].poster;
-            loadImages(obj);
-          }
-        };
-        xhttp.open("GET", "https://raw.githubusercontent.com/budu3/the-book/master/code/myflix/movies.json", true);
-        xhttp.send();
-      }
-
-      function loadImages(obj){
-
-
-        var rows = document.getElementsByClassName("img-row");
-        for (var i=0; i< rows.length; i++){
-          var row = rows[i];
-
-          for (var j=0; j < obj.length; j++){
-            
-            var div = document.createElement("div");
-            div.setAttribute("class", "col-xs-6 hide");
-
-            var img = document.createElement("img");
-            img.setAttribute("src", obj[j].poster);
-            img.setAttribute("class", "mg-responsive poster");
-            
-            if (j < 2){
-              div.classList.remove("hide");
-              div.classList.add("unhide");
-            }
-            
-            div.append(img);
-            row.append(div);
-          } 
-
-          
-        }
-      }
 </script>
 </body>
 </html>
