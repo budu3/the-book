@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Myflix</title>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, user-scalable=yes">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<script src="https://use.fontawesome.com/bf9fd95398.js"></script>
+	<style>
+  	body {
+      font-family: 'Roboto', sans-serif;
+      background-color: black;
+    }
+    #searchbox {
+    	background-color: black;
+    	color: white;
+    	border-style: solid;
+    	border-color: white;
+    	border-width: 1px;
+    	padding: 4px 4px 4px 4px;
+    	width: 200px;
+    	height: 40px;
+    	-webkit-tap-highlight-color: transparent;
+    }
+    #buttonimg {
+    	color: white;
+    }
+    li {
+    	padding-top: 10px;
+    }
+    .poster {
+    	max-width: 200px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+	<div class="navbar"><img class="img-responsive logo" src="images/myflix_icon.jpg"></img></div>
+	<form>
+		<input type="search" id="searchbox" name="myflixsearchbox" class="" placeholder="Search" oninput="search()">
+		<i class="fa fa-search fa-lg" id="buttonimg"></i>
+	</form>
+</div>
+<span>
+		<ul id="movie_list">
+
+		</ul>
+	</span>
+<script type="text/javascript">
+			var obj;
+			(function loadData(){
+		        var xhttp = new XMLHttpRequest();
+		        xhttp.onreadystatechange = function() {
+		          if (this.readyState == 4 && this.status == 200) {
+		            obj = JSON.parse(this.responseText);
+		            //console.log(this.responseText);
+		          }
+		        };
+		        xhttp.open("GET", "https://raw.githubusercontent.com/budu3/the-book/master/code/myflix/movies.json", true);
+		        xhttp.send();
+		        //console.log("onkeypress");
+		    })()
+
+		    function search(){
+		    	var el = document.getElementById("searchbox");
+		    	var val = el.value
+		    	var keyword;
+		    	var regex = RegExp(val);
+		    	var ul = document.getElementById("movie_list");
+		    	ul.textContent = '';
+		    	console.log(val);
+		    	obj.forEach(
+		    		(element) => {
+		    			//console.log(element);
+		    			keyword = element.plot_keywords;
+		    			//console.log(keyword.match(regex));
+		    			if (keyword.match(regex) !== null){
+		    				//ul = document.getElementById("movie_list");
+		    				//ul.textContent = '';
+		    				console.log(element.movie_title);
+		    				var img = document.createElement("img");
+		    				img.setAttribute("src", element.poster);
+		    				img.setAttribute("class", "mg-responsive poster");
+		    				var li = document.createElement("li");
+		    				li.appendChild(img);
+		    				ul.appendChild(li);
+		    			}
+		    		}
+
+		    		)
+		    }
+
+		    //window.onload = loadData();
+
+		</script>
+</body>
+</html>

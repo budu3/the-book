@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity
             webView.loadUrl("file:///android_asset/index.html#drama");
         } else if (id == R.id.action) {
             webView.loadUrl("file:///android_asset/index.html#action");
+        } else if (id == R.id.search) {
+            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

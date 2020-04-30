@@ -16,6 +16,9 @@
             android:id="@+id/action"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Action" />
+        <item
+            android:id="@+id/search"
+            android:title="Search" />
     </group>
 
     <item android:title="Communicate">
