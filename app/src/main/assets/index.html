@@ -34,7 +34,7 @@
 		
 		li.addEventListener("click", strikeThrough);
 	}
-
+	//>> strikethrough
 	function strikeThrough(){
 		if (this.style.textDecoration == "none"){
 			this.style.textDecoration = "line-through";
@@ -42,6 +42,7 @@
 			this.style.textDecoration = "none";
 		}
 	}
+	//<<
 	
 	function attachFunction(st){
 		document.getElementById("item1").onclick = st;
