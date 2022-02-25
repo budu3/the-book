@@ -16,7 +16,7 @@ public class InfoViewModel extends AndroidViewModel {
 
     public InfoViewModel(@NonNull Application application) {
         super(application);
-        SharedPreferences prefs = getApplication().getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences prefs = getApplication().getSharedPreferences("movie", Context.MODE_PRIVATE);
 
         mText = new MutableLiveData<>();
 

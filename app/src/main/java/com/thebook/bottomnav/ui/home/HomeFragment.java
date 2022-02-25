@@ -17,6 +17,12 @@ import androidx.navigation.Navigation;
 
 import com.thebook.bottomnav.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Random;
+
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
@@ -24,14 +30,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
+                //build the images here
                 textView.setText(s);
+                String poster = "";
+                int length = 0;
+                int rand = 0;
+
+                try {
+                    JSONArray jsonArray = new JSONArray(s);
+                    length = jsonArray.length();
+
+                    for (int i=4; i<16; i++){
+                        rand = new Random().nextInt(length - 1);
+                        JSONObject jsonObject = jsonArray.getJSONObject(rand);
+                        poster = jsonObject.getString("poster");
+
+                        // get id for an image view
+                        int id = getResources().getIdentifier("imageView" + i,"id",
+                                getActivity().getPackageName());
+                        ImageView imgView = root.findViewById(id);
+
+                        //get id for an image
+                        int imgID = getResources().getIdentifier(poster , "drawable" ,
+                                getActivity().getPackageName()) ;
+                        imgView.setImageResource(imgID);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Log.d("SharedPref", poster);
+
             }
         });
 
@@ -49,6 +85,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_info);
+        String resourceName;
+        Bundle bundle = new Bundle();
+
+        resourceName = view.getResources().getResourceName(view.getId()).split("/")[1];
+        bundle.putString("id", resourceName);
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_info, bundle);
     }
 }
