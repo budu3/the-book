@@ -18,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
+    //todo: look at https://github.com/willowtreeapps/SimpleRecyclerViewDemo
     private static final String PREFS_NAME = "movie";
 
     @Override
