@@ -51,7 +51,7 @@ public class HomeViewModel extends AndroidViewModel {
                 svm.setPoster(poster);
                 svm.setImage(imgID);
                 movieList.add(svm);
-                Log.d("bottomnav:id", String.valueOf(imgID));
+                Log.d("bottomnav:id", "" + imgID);
                 Log.d("bottomnav:movielist", movieList.toString());
             }
         } catch (JSONException e) {
