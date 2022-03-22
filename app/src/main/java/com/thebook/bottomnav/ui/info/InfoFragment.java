@@ -38,7 +38,10 @@ public class InfoFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        Log.d("Bundle", getArguments().getString("id"));
+        Log.d("Bundle", getArguments().getString("poster"));
+        Log.d("Bundle", getArguments().getString("title"));
+        Log.d("Bundle", Integer.toString(getArguments().getInt("id")));
+
         return root;
     }
 

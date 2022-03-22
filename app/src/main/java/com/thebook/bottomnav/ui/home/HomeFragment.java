@@ -106,7 +106,18 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.ItemCl
 
     @Override
     public void onItemClick(View view, int position) {
+        Bundle bundle = new Bundle();
+        SimpleViewModel item = adapter.getItem(position);
+        int image = item.getImage();
+        String poster = item.getPoster();
+        String title = item.getTitle();
+
+        bundle.putInt("image", image);
+        bundle.putString("poster", poster);
+        bundle.putString("title", title);
+
         //Toast.makeText(getContext(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         Toast.makeText(getContext(), "You clicked  on position number " + position, Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_info, bundle);
     }
 }
