@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thebook.bottomnav.R;
@@ -31,16 +32,21 @@ public class InfoFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.info_fragment, container, false);
         final TextView textView = root.findViewById(R.id.text_info);
+        final ImageView imageView = root.findViewById(R.id.info_image);
         mViewModel = new ViewModelProvider(this).get(InfoViewModel.class);
         mViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                //textView.setText(s);
             }
         });
+        String title = getArguments().getString("title");
+        textView.setText(title);
+        imageView.setImageResource(getArguments().getInt("image"));
+
         Log.d("Bundle", getArguments().getString("poster"));
         Log.d("Bundle", getArguments().getString("title"));
-        Log.d("Bundle", Integer.toString(getArguments().getInt("id")));
+        Log.d("Bundle", "" + getArguments().getInt("image"));
 
         return root;
     }
