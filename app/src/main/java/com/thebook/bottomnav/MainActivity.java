@@ -1,9 +1,12 @@
 package com.thebook.bottomnav;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        startService(new Intent(this, SimpleService.class));
+
         try {
             saveToSharedPreferences(this);
         } catch (JSONException e) {
@@ -47,6 +53,23 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp();
     }
 
+    /*
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void startService(View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(getBaseContext(), SimpleService.class));
+        }else{
+            startService(new Intent(this, SimpleService.class));
+        }
+    }
+    */
+
+    // Method to stop the service
+    /*
+    public void stopService(View view) {
+        stopService(new Intent(getBaseContext(), SimpleService.class));
+    }
+    */
     //user defined method
     private void saveToSharedPreferences(Context context) throws JSONException {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
