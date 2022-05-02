@@ -11,6 +11,13 @@ import android.os.Process; //using this instead of java.lang.Process
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static android.widget.Toast.LENGTH_LONG;
 
 public class SimpleService extends Service {
@@ -25,13 +32,36 @@ public class SimpleService extends Service {
 
         @Override
         public void handleMessage(Message msg){
+
+            URL url = null;
+            BufferedReader br = null;
+            try {
+                url = new URL("https://example.com");
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestMethod("GET");
+
+                br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String output;
+                StringBuilder builder = new StringBuilder();
+                while ((output = br.readLine()) != null){
+                    builder.append(output);
+                }
+                Log.d("Service->", builder.toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*
             try{
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+             */
             stopSelf(msg.arg1);
-            Log.d("Service->","Service has started");
+            Log.d("Service->","Message has been handled");
+
         }
 
     }
