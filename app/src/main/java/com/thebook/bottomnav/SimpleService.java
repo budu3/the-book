@@ -35,8 +35,6 @@ public class SimpleService extends Service {
         }
 
     }
-    public SimpleService() {
-    }
 
     @Override
     public void onCreate() {
@@ -45,18 +43,12 @@ public class SimpleService extends Service {
 
         serviceLooper = thread.getLooper();
         serviceHandler = new ServiceHandler(serviceLooper);
-        //super.onCreate();
-    }
-
-    public void onStart(){
-        //Toast.makeText(this, "The Service has been started", Toast.LENGTH_LONG).show();
-        //Log.d("Service->","Service has started");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "onStartCommand", LENGTH_LONG).show();
-        Log.d("Service->","onStartCommand has started");
+        Toast.makeText(this, "Service has started", LENGTH_LONG).show();
+        Log.d("Service->","Service has started");
 
         Message msg = serviceHandler.obtainMessage();
         msg.arg1 = startId;
@@ -66,14 +58,13 @@ public class SimpleService extends Service {
     }
 
     public void onDestroy(){
-        Toast.makeText(this, "service done", LENGTH_LONG);
+        Toast.makeText(this, "Service has ended", LENGTH_LONG);
         Log.d("Service->","Service has ended");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        //throw new UnsupportedOperationException("Not yet implemented");
+
         return null;
     }
 }
