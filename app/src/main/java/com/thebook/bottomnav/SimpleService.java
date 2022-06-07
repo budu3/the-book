@@ -36,7 +36,7 @@ public class SimpleService extends Service {
             URL url = null;
             BufferedReader br = null;
             try {
-                url = new URL("https://example.com");
+                url = new URL("https://github.com/budu3/the-book/blob/master/code/myflix/movies.json");
                 HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                 conn.setRequestMethod("GET");
 
