@@ -41,18 +41,18 @@ public class HomeViewModel extends AndroidViewModel {
             //Log.d("len", String.valueOf(len));
             for (int i=0; i<len; i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                Log.d("bottomnav:json", jsonObject.toString(2));
+                //Log.d("bottomnav:json", jsonObject.toString(2));
                 String poster = jsonObject.getString("poster");
                 String title = jsonObject.getString("movie_title");
-                Log.d("bottomnav:movie_title", title);
+                //Log.d("bottomnav:movie_title", title);
                 int imgID = getApplication().getResources().getIdentifier(poster,"drawable",getApplication().getPackageName());
                 SimpleViewModel svm = new SimpleViewModel();
                 svm.setTitle(title);
                 svm.setPoster(poster);
                 svm.setImage(imgID);
                 movieList.add(svm);
-                Log.d("bottomnav:id", "" + imgID);
-                Log.d("bottomnav:movielist", movieList.toString());
+                //Log.d("bottomnav:id", "" + imgID);
+                //Log.d("bottomnav:movielist", movieList.toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -53,9 +53,6 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.ItemCl
             @Override
             public void onChanged(@Nullable ArrayList<SimpleViewModel> movieList) {
                 // data to populate the RecyclerView with
-                //TODO: consider moving this into the viewmodel, https://askandroidquestions.com/2021/06/15/how-to-load-data-into-a-recyclerview-inside-a-fragment-using-viewmodel/
-                //TODO: https://gist.githubusercontent.com/sheharyarn/20f171e900eff32bf38fd8be1d30911d/raw/fdb1bea258fdb11875c80ebc3b3e8d3e0311bbfa/RVFragment.java
-                //TODO: add additional recyclerviews
 
                 Context context = getContext();
                 recyclerView = root.findViewById(R.id.fav_recyclerview);
@@ -82,14 +79,6 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.ItemCl
         });
         //TODO: End of viewModel
 
-        //add onClickListener to scrolling images
-        /*
-        for (int i=4; i<16; i++){
-            int id = getResources().getIdentifier("imageView" + i,"id", getActivity().getPackageName());
-            ImageView imgView = root.findViewById(id);
-            //imgView.setOnClickListener(this);
-        }
-        */
         return root;
     }
 

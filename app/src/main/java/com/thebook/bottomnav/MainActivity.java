@@ -1,10 +1,14 @@
 package com.thebook.bottomnav;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 
@@ -14,16 +18,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.Operation;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+
+//import this to have access to the MyBinder class
+import com.thebook.bottomnav.SimpleService.LocalBinder;
 
 public class MainActivity extends AppCompatActivity {
-    //todo: look at https://github.com/willowtreeapps/SimpleRecyclerViewDemo
     private static final String PREFS_NAME = "movie";
+    private SimpleService myBoundService;
+    private boolean bounded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +52,21 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        startService(new Intent(this, SimpleService.class));
+        final WorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
+        WorkManager.getInstance().enqueue(workRequest);
+        WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
+            String output = "";
+            @Override
+            public void onChanged(WorkInfo workInfo) {
+                Log.d("MainActivity->", "" + workInfo.getState());
+                if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                    Log.d("MainActivity->", "I got here");
+                    output = workInfo.getOutputData().getString("RemoteData");
+                    Log.d("MainActivity->",output);
+                }
+            }
+        });
+
 
         try {
             saveToSharedPreferences(this);
@@ -48,29 +75,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    protected void onStart() {
+        String remoteData = null;
+
+        super.onStart();
+        /*
+        Intent intent = new Intent(this, SimpleService.class);
+        startService(intent);
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        Log.d("Bounded OnStart->", ""+bounded);
+         */
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("Bounded run->", ""+bounded);
+                if (bounded){
+                    String remoteData = myBoundService.getRemoteData();
+                    Log.d("Remote->", remoteData);
+                }
+            }
+        };
+
+        Handler handler = new Handler();
+        handler.postDelayed(runnable, 3000);
+         */
+    }
+
+    protected void onStop() {
+        super.onStop();
+        if (bounded) {
+            unbindService(serviceConnection);
+            bounded = false;
+        }
+        Log.d("Bounded","onStop");
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return navController.navigateUp();
     }
 
-    /*
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void startService(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(new Intent(getBaseContext(), SimpleService.class));
-        }else{
-            startService(new Intent(this, SimpleService.class));
-        }
-    }
-    */
-
-    // Method to stop the service
-    /*
-    public void stopService(View view) {
-        stopService(new Intent(getBaseContext(), SimpleService.class));
-    }
-    */
     //user defined method
     private void saveToSharedPreferences(Context context) throws JSONException {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -146,5 +197,21 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.apply();
 
     }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder service) {
+            LocalBinder myBinder = (LocalBinder)service;
+            myBoundService = myBinder.getService();
+            bounded = true;
+            Log.d("Bounded onServiceConnected->", ""+bounded);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            bounded = false;
+            myBoundService = null;
+        }
+    };
 
 }

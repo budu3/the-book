@@ -44,10 +44,11 @@ public class InfoFragment extends Fragment {
         textView.setText(title);
         imageView.setImageResource(getArguments().getInt("image"));
 
+        /*
         Log.d("Bundle", getArguments().getString("poster"));
         Log.d("Bundle", getArguments().getString("title"));
         Log.d("Bundle", "" + getArguments().getInt("image"));
-
+        */
         return root;
     }
 
