@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.thebook.bottomnav.ui.MyImageWorker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,11 +32,11 @@ import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
 //import this to have access to the MyBinder class
-import com.thebook.bottomnav.SimpleService.LocalBinder;
+//import com.thebook.bottomnav.SimpleService.LocalBinder;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "movie";
-    private SimpleService myBoundService;
+    //private SimpleService myBoundService;
     private boolean bounded = false;
 
     @Override
@@ -52,8 +53,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        final WorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
-        WorkManager.getInstance().enqueue(workRequest);
+        //final WorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
+        //final WorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
+
+        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
+        final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
+
+        //WorkManager.getInstance().enqueue(workRequest);
+        WorkManager.getInstance().beginWith(workRequest).then(imageRequest).enqueue();
         WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
             String output = "";
             @Override
@@ -109,11 +116,13 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onStop() {
         super.onStop();
+        /*
         if (bounded) {
             unbindService(serviceConnection);
             bounded = false;
         }
         Log.d("Bounded","onStop");
+         */
     }
 
     @Override
@@ -198,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
@@ -213,5 +223,5 @@ public class MainActivity extends AppCompatActivity {
             myBoundService = null;
         }
     };
-
+    */
 }
