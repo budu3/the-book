@@ -46,11 +46,9 @@ public class MyImageWorker extends Worker {
         int len = 0;
 
         try {
+            //todo: create all the image files not just a-ghost-story.jpg
             File file = new File(getApplicationContext().getCacheDir(), "a-ghost-story.jpg");
             boolean success = file.createNewFile();
-            Log.d("MyImageWorker",file.getAbsolutePath());
-            Log.d("MyImageWorker->", ""+success);
-            Log.d("MyImageWorker->", "exists "+file.exists());
 
             url = new URL("https://raw.githubusercontent.com/budu3/the-book/master/code/assets/images/a-ghost-story.jpg");
 

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         //final WorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
         //final WorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
-
+        /*
         final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
         final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
 
@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+         */
         try {
             saveToSharedPreferences(this);
         } catch (JSONException e) {

@@ -18,8 +18,13 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
+import com.thebook.bottomnav.MyWorker;
 import com.thebook.bottomnav.R;
+import com.thebook.bottomnav.ui.MyImageWorker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,14 +82,32 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.ItemCl
                 recyclerView.scrollToPosition(3);
             }
         });
-        //TODO: End of viewModel
+        //End of viewModel
+
+        /*
+        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
+        final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
+
+        WorkManager.getInstance().beginWith(workRequest).then(imageRequest).enqueue();
+        WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
+            String output = "";
+            @Override
+            public void onChanged(WorkInfo workInfo) {
+                Log.d("HomeFragment->", "" + workInfo.getState());
+                if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                    Log.d("HomeFragment->", "I got here");
+                    output = workInfo.getOutputData().getString("RemoteData");
+                    Log.d("HomeFragment->",output);
+                }
+            }
+        });
+         */
 
         return root;
     }
 
     //@Override
     public void onClick(View view) {
-        //todo: pass on movie data for movie selected to the Info Fragment
         String resourceName;
         Bundle bundle = new Bundle();
 

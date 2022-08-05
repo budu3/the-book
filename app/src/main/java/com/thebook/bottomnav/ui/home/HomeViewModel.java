@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.thebook.bottomnav.MyWorker;
+import com.thebook.bottomnav.ui.MyImageWorker;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +18,11 @@ import java.util.Map;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 //You need to extend AndroidViewModel
 public class HomeViewModel extends AndroidViewModel {
@@ -34,6 +41,41 @@ public class HomeViewModel extends AndroidViewModel {
 
         SharedPreferences prefs = getApplication().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String movieStr = prefs.getString("movie1","");
+
+        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
+        final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
+
+        WorkManager.getInstance().beginWith(workRequest).then(imageRequest).enqueue();
+        WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
+            String output = "";
+            @Override
+            public void onChanged(WorkInfo workInfo) {
+                Log.d("HomeFragment->", "" + workInfo.getState());
+                if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
+                    Log.d("HomeFragment->", "I got here");
+                    output = workInfo.getOutputData().getString("RemoteData");
+                    Log.d("HomeFragment->",output);
+
+                    try {
+                        JSONArray jsonArray = new JSONArray(output);
+                        for (int i=0; i<jsonArray.length(); i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String poster = jsonObject.getString("poster");
+                            String title = jsonObject.getString("movie_title");
+                            //Log.d("bottomnav:movie_title", title);
+                            SimpleViewModel svm = new SimpleViewModel();
+                            svm.setTitle(title);
+                            svm.setPoster(poster);
+                            //svm.setImage(imgID);
+                            movieList.add(svm);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         try {
             JSONArray jsonArray = new JSONArray(movieStr);

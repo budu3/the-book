@@ -1,6 +1,8 @@
 package com.thebook.bottomnav.ui.home;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<SimpleViewModel> data;
     private LayoutInflater layoutInflater;
     private ItemClickListener mClickListener;
+    private Context context;
 
     RecyclerViewAdapter(Context context, ArrayList<SimpleViewModel> data) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
+        this.context = context;
     }
 
     @Override
@@ -32,8 +36,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        String pathToPicture = context.getCacheDir() + "/a-ghost-story.jpg";
         SimpleViewModel movie = data.get(position);
-        holder.myImageView.setImageResource(movie.getImage());
+        //holder.myImageView.setImageResource(movie.getImage());
+        holder.myImageView.setImageBitmap(BitmapFactory.decodeFile(pathToPicture));
+        Log.d("RecyclerView->",pathToPicture);
     }
 
     @Override
