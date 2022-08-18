@@ -36,8 +36,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String pathToPicture = context.getCacheDir() + "/a-ghost-story.jpg";
+        //String pathToPicture = context.getCacheDir() + "/a-ghost-story.jpg";
         SimpleViewModel movie = data.get(position);
+        String poster = movie.getPoster();
+        String pathToPicture = context.getCacheDir() + "/" + poster;
         //holder.myImageView.setImageResource(movie.getImage());
         holder.myImageView.setImageBitmap(BitmapFactory.decodeFile(pathToPicture));
         Log.d("RecyclerView->",pathToPicture);

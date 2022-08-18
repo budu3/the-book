@@ -107,6 +107,7 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.ItemCl
     }
 
     //@Override
+    //todo: pass movielist to the bundle here
     public void onClick(View view) {
         String resourceName;
         Bundle bundle = new Bundle();

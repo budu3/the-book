@@ -37,6 +37,13 @@ public class MyImageWorker extends Worker {
     }
 
     private void getRemoteImages(){
+
+        createImageFile("a-ghost-story.jpg");
+        createImageFile("alien-covenant.jpg");
+        createImageFile("pirates-of-the-caribbean.jpg");
+        createImageFile("sleepless.jpg");
+        createImageFile("dark-tower.jpg");
+        /*
         URL url = null;
         BufferedReader br = null;
         String result = null;
@@ -47,6 +54,8 @@ public class MyImageWorker extends Worker {
 
         try {
             //todo: create all the image files not just a-ghost-story.jpg
+
+
             File file = new File(getApplicationContext().getCacheDir(), "a-ghost-story.jpg");
             boolean success = file.createNewFile();
 
@@ -68,11 +77,43 @@ public class MyImageWorker extends Worker {
             in.close();
 
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
+//--
+            url = new URL("https://raw.githubusercontent.com/budu3/the-book/master/code/assets/images/alien-covenant.jpg");
+            conn = (HttpURLConnection)url.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            in = conn.getInputStream();
+            bufferedInputStream = new BufferedInputStream(in);
+            bitmap = BitmapFactory.decodeStream(bufferedInputStream);
+            in.close();
+            file = new File(getApplicationContext().getCacheDir(), "alien-covenant.jpg");
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("MyImageWorker", "IOException");
+        }
+
+         */
+    }
+
+    private void createImageFile(String filename){
+        try {
+            URL url = new URL("https://raw.githubusercontent.com/budu3/the-book/master/code/assets/images/" + filename);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream in = conn.getInputStream();
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
+            Bitmap bitmap = BitmapFactory.decodeStream(bufferedInputStream);
+            in.close();
+            File file = new File(getApplicationContext().getCacheDir(), filename);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
+        } catch (MalformedURLException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
         }
 
     }

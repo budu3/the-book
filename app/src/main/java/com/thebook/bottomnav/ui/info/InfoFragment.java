@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,10 @@ public class InfoFragment extends Fragment {
         });
         String title = getArguments().getString("title");
         textView.setText(title);
-        imageView.setImageResource(getArguments().getInt("image"));
+        //imageView.setImageResource(getArguments().getInt("image"));
+        String poster = getArguments().getString("poster");
+        String pathToPicture = root.getContext().getCacheDir() + "/" + poster;
+        imageView.setImageBitmap(BitmapFactory.decodeFile(pathToPicture));
 
         /*
         Log.d("Bundle", getArguments().getString("poster"));

@@ -62,10 +62,10 @@ public class HomeViewModel extends AndroidViewModel {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             String poster = jsonObject.getString("poster");
                             String title = jsonObject.getString("movie_title");
-                            //Log.d("bottomnav:movie_title", title);
+                            Log.d("HomeViewModel->", " poster " + poster);
                             SimpleViewModel svm = new SimpleViewModel();
                             svm.setTitle(title);
-                            svm.setPoster(poster);
+                            svm.setPoster(poster.replace("images/",""));
                             //svm.setImage(imgID);
                             movieList.add(svm);
 
@@ -76,7 +76,7 @@ public class HomeViewModel extends AndroidViewModel {
                 }
             }
         });
-
+        /*
         try {
             JSONArray jsonArray = new JSONArray(movieStr);
             int len = jsonArray.length();
@@ -99,7 +99,7 @@ public class HomeViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        */
         mText.setValue(movieStr);
         movieLiveData.setValue(movieList);
 
