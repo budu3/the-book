@@ -5,21 +5,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.thebook.bottomnav.MyWorker;
-import com.thebook.bottomnav.ui.MyImageWorker;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;

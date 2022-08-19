@@ -1,4 +1,4 @@
-package com.thebook.bottomnav;
+package com.thebook.bottomnav.ui.home;
 
 
 import android.content.Context;
@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
 
 public class MyWorker extends Worker {
 

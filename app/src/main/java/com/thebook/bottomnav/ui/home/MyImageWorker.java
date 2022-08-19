@@ -1,4 +1,4 @@
-package com.thebook.bottomnav.ui;
+package com.thebook.bottomnav.ui.home;
 
 import android.content.Context;
 import android.graphics.Bitmap;
