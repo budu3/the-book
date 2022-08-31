@@ -72,25 +72,6 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.ItemCl
         });
         //End of viewModel
 
-        /*
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
-        final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
-
-        WorkManager.getInstance().beginWith(workRequest).then(imageRequest).enqueue();
-        WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
-            String output = "";
-            @Override
-            public void onChanged(WorkInfo workInfo) {
-                Log.d("HomeFragment->", "" + workInfo.getState());
-                if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-                    Log.d("HomeFragment->", "I got here");
-                    output = workInfo.getOutputData().getString("RemoteData");
-                    Log.d("HomeFragment->",output);
-                }
-            }
-        });
-         */
-
         return root;
     }
 

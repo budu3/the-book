@@ -14,12 +14,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-//import this to have access to the MyBinder class
-//import com.thebook.bottomnav.SimpleService.LocalBinder;
-
 public class MainActivity extends AppCompatActivity {
-    private static final String PREFS_NAME = "movie";
-    //private SimpleService myBoundService;
+    //private static final String PREFS_NAME = "movie";
     private boolean bounded = false;
 
     @Override
@@ -27,84 +23,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        //start snippet
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-        //final WorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
-        //final WorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
+        //end snippet
         /*
-        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(MyWorker.class).build();
-        final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
-
-        //WorkManager.getInstance().enqueue(workRequest);
-        WorkManager.getInstance().beginWith(workRequest).then(imageRequest).enqueue();
-        WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
-            String output = "";
-            @Override
-            public void onChanged(WorkInfo workInfo) {
-                Log.d("MainActivity->", "" + workInfo.getState());
-                if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-                    Log.d("MainActivity->", "I got here");
-                    output = workInfo.getOutputData().getString("RemoteData");
-                    Log.d("MainActivity->",output);
-                }
-            }
-        });
-         */
         try {
             saveToSharedPreferences(this);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+         */
     }
 
     protected void onStart() {
-        String remoteData = null;
-
+        //String remoteData = null;
         super.onStart();
-        /*
-        Intent intent = new Intent(this, SimpleService.class);
-        startService(intent);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        Log.d("Bounded OnStart->", ""+bounded);
-         */
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        /*
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                Log.d("Bounded run->", ""+bounded);
-                if (bounded){
-                    String remoteData = myBoundService.getRemoteData();
-                    Log.d("Remote->", remoteData);
-                }
-            }
-        };
-
-        Handler handler = new Handler();
-        handler.postDelayed(runnable, 3000);
-         */
     }
 
     protected void onStop() {
         super.onStop();
-        /*
-        if (bounded) {
-            unbindService(serviceConnection);
-            bounded = false;
-        }
-        Log.d("Bounded","onStop");
-         */
     }
 
     @Override
@@ -114,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //user defined method
+    /*
     private void saveToSharedPreferences(Context context) throws JSONException {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = prefs.edit();
@@ -188,22 +137,5 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.apply();
 
     }
-
-    /*
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder service) {
-            LocalBinder myBinder = (LocalBinder)service;
-            myBoundService = myBinder.getService();
-            bounded = true;
-            Log.d("Bounded onServiceConnected->", ""+bounded);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            bounded = false;
-            myBoundService = null;
-        }
-    };
-    */
+     */
 }
