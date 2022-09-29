@@ -43,59 +43,7 @@ public class MyImageWorker extends Worker {
         createImageFile("pirates-of-the-caribbean.jpg");
         createImageFile("sleepless.jpg");
         createImageFile("dark-tower.jpg");
-        /*
-        URL url = null;
-        BufferedReader br = null;
-        String result = null;
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        byte[] buffer = new byte[10240];
-        int len = 0;
-
-        try {
-            //todo: create all the image files not just a-ghost-story.jpg
-
-
-            File file = new File(getApplicationContext().getCacheDir(), "a-ghost-story.jpg");
-            boolean success = file.createNewFile();
-
-            url = new URL("https://raw.githubusercontent.com/budu3/the-book/master/code/assets/images/a-ghost-story.jpg");
-
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setDoInput(true);
-            conn.connect();
-            InputStream in = conn.getInputStream();
-            Log.d("MyImageWorker->",""+conn.getResponseCode());
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-            Bitmap bitmap = BitmapFactory.decodeStream(bufferedInputStream);
-
-            if (bitmap != null)
-                Log.d("MyImageWorker->", "ByteCount "+bitmap.getByteCount());
-            else
-                Log.d("MyImageWorker->", "bitmap is null");
-
-            in.close();
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
-//--
-            url = new URL("https://raw.githubusercontent.com/budu3/the-book/master/code/assets/images/alien-covenant.jpg");
-            conn = (HttpURLConnection)url.openConnection();
-            conn.setDoInput(true);
-            conn.connect();
-            in = conn.getInputStream();
-            bufferedInputStream = new BufferedInputStream(in);
-            bitmap = BitmapFactory.decodeStream(bufferedInputStream);
-            in.close();
-            file = new File(getApplicationContext().getCacheDir(), "alien-covenant.jpg");
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
     }
 
     private void createImageFile(String filename){
