@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        //snippet
+        //start snippet
         startService(new Intent(this, SimpleService.class));
-        //snippet
+        //end snippet
 
         try {
             saveToSharedPreferences(this);
