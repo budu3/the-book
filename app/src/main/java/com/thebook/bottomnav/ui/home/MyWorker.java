@@ -40,6 +40,7 @@ public class MyWorker extends Worker {
         URL url = null;
         BufferedReader br = null;
         String result = null;
+        //start snippet
         try {
             url = new URL("https://raw.githubusercontent.com/budu3/the-book/master/code/myflix/movies.json");
 
@@ -60,7 +61,7 @@ public class MyWorker extends Worker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        //end snippet
         return result;
     }
 
