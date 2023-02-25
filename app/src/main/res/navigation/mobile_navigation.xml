@@ -9,11 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.thebook.bottomnav.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_info"
-            app:destination="@id/navigation_info" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -26,13 +22,4 @@
         android:name="com.thebook.bottomnav.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/navigation_info"
-        android:name="com.thebook.bottomnav.ui.info.InfoFragment"
-        android:label="info_fragment"
-        tools:layout="@layout/info_fragment" >
-        <action
-            android:id="@+id/action_navigation_info_to_navigation_home"
-            app:destination="@id/navigation_home" />
-    </fragment>
 </navigation>
