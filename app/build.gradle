@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "com.thebook.bottomnav"
     compileSdkVersion 29
-    buildToolsVersion "30.0.0"
 
     defaultConfig {
         applicationId "com.thebook.bottomnav"
