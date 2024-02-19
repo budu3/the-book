@@ -22,25 +22,21 @@ public class MainActivity extends AppCompatActivity {
         webView.loadUrl("file:///android_asset/index.html");
 
         findViewById(R.id.explicit).setOnClickListener(new View.OnClickListener() {
-            //>> Explict Intent
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra("message","Message sent from MainActivity");
                 startActivity(intent);
             }
-            //<<
         });
 
         findViewById(R.id.implicit).setOnClickListener(new View.OnClickListener() {
-            //>> Implicit Intent
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.example.com"));
                 startActivity(intent);
             }
-            //<<
         });
     }
 }
