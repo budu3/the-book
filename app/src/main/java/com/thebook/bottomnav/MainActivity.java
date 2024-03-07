@@ -24,18 +24,22 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.explicit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //>> Explict Intent
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra("message","Message sent from MainActivity");
                 startActivity(intent);
+                //<<
             }
         });
 
         findViewById(R.id.implicit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //>> Implicit Intent
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.example.com"));
                 startActivity(intent);
+                //<<
             }
         });
     }
