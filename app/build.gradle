@@ -1,17 +1,19 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.0"
+    namespace 'com.thebook.bottomnav'
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.thebook.bottomnav"
         minSdkVersion 25
-        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        targetSdk 34
     }
 
     buildTypes {
@@ -20,7 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
