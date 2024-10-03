@@ -24,12 +24,17 @@ public class HomeFragment extends Fragment
     private ImageView imageView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+                ViewModelProviders.of(this)
+                  .get(HomeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home,
+                container,
+                false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getText().observe(
+                getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -53,6 +58,6 @@ public class HomeFragment extends Fragment
     @Override
     public void onClick(View view) {
         Navigation.findNavController(view)
-                .navigate(R.id.action_navigation_home_to_navigation_info);
+          .navigate(R.id.action_navigation_home_to_navigation_info);
     }
 }
