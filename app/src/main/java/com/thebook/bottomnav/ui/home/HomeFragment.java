@@ -17,7 +17,8 @@ import androidx.navigation.Navigation;
 
 import com.thebook.bottomnav.R;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment
+        implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
     private ImageView imageView;
@@ -40,7 +41,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         //add onClickListener to scrolling images
         for (int i=4; i<16; i++){
-            int id = getResources().getIdentifier("imageView" + i,"id", getActivity().getPackageName());
+            int id = getResources().getIdentifier(
+                    "imageView" + i,"id",
+                    getActivity().getPackageName());
             ImageView imgView = root.findViewById(id);
             imgView.setOnClickListener(this);
         }
@@ -49,6 +52,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_info);
+        Navigation.findNavController(view)
+                .navigate(R.id.action_navigation_home_to_navigation_info);
     }
 }
