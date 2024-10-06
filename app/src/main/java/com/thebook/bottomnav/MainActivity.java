@@ -7,9 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
-
     private WebView webView;
 
     @Override
@@ -21,23 +19,30 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/index.html");
 
-        findViewById(R.id.explicit).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.explicit)
+          .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //>> Explict Intent
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra("message","Message sent from MainActivity");
+                Intent intent =
+                  new Intent(MainActivity.this,
+                  SecondActivity.class);
+                intent
+                  .putExtra("message",
+                    "Message sent from MainActivity");
                 startActivity(intent);
                 //<<
             }
         });
 
-        findViewById(R.id.implicit).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.implicit)
+          .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //>> Implicit Intent
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("https://www.example.com"));
+                intent
+                  .setData(Uri.parse("https://www.example.com"));
                 startActivity(intent);
                 //<<
             }
