@@ -40,11 +40,7 @@ public class HomeFragment extends Fragment
                 textView.setText(s);
             }
         });
-
-        //imageView = root.findViewById(R.id.imageView4);
-        //imageView.setOnClickListener(this);
-
-        //add onClickListener to scrolling images
+        
         for (int i=4; i<16; i++){
             int id = getResources().getIdentifier(
                     "imageView" + i,"id",
