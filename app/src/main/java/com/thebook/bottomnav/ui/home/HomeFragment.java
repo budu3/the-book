@@ -23,19 +23,25 @@ import org.json.JSONObject;
 
 import java.util.Random;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment
+  implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
     private ImageView imageView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
 
         homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        final View root = inflater.inflate(R.layout.fragment_home, container, false);
+                ViewModelProviders.of(this)
+                  .get(HomeViewModel.class);
+        final View root = inflater.inflate(R.layout.fragment_home,
+          container,
+          false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(),
+          new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 //build the images here
@@ -49,34 +55,36 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     length = jsonArray.length();
 
                     for (int i=4; i<16; i++){
-                        rand = new Random().nextInt(length - 1);
-                        JSONObject jsonObject = jsonArray.getJSONObject(rand);
+                        rand = new Random()
+                          .nextInt(length - 1);
+                        JSONObject jsonObject = jsonArray
+                          .getJSONObject(rand);
                         poster = jsonObject.getString("poster");
 
                         // get id for an image view
-                        int id = getResources().getIdentifier("imageView" + i,"id",
+                        int id = getResources()
+                          .getIdentifier("imageView" + i,"id",
                                 getActivity().getPackageName());
                         ImageView imgView = root.findViewById(id);
 
                         //get id for an image
-                        int imgID = getResources().getIdentifier(poster , "drawable" ,
-                                getActivity().getPackageName()) ;
+                        int imgID = getResources().getIdentifier(poster,
+                          "drawable" ,
+                          getActivity().getPackageName()) ;
                         imgView.setImageResource(imgID);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //Log.d("SharedPref", poster);
 
             }
         });
 
-        //imageView = root.findViewById(R.id.imageView4);
-        //imageView.setOnClickListener(this);
-
         //add onClickListener to scrolling images
         for (int i=4; i<16; i++){
-            int id = getResources().getIdentifier("imageView" + i,"id", getActivity().getPackageName());
+            int id = getResources().getIdentifier("imageView" + i,
+              "id",
+              getActivity().getPackageName());
             ImageView imgView = root.findViewById(id);
             imgView.setOnClickListener(this);
         }
@@ -88,8 +96,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         String resourceName;
         Bundle bundle = new Bundle();
 
-        resourceName = view.getResources().getResourceName(view.getId()).split("/")[1];
+        resourceName = view.getResources()
+          .getResourceName(view.getId()).split("/")[1];
         bundle.putString("id", resourceName);
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_info, bundle);
+        Navigation.findNavController(view)
+          .navigate(R.id.action_navigation_home_to_navigation_info,
+            bundle);
     }
 }
