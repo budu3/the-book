@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,16 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.thebook.bottomnav.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 public class HomeFragment extends Fragment implements
   RecyclerViewAdapter.ItemClickListener{
@@ -101,7 +92,6 @@ public class HomeFragment extends Fragment implements
 
     //@Override
     public void onClick(View view) {
-        //todo: pass on movie data for movie selected to the Info Fragment
         String resourceName;
         Bundle bundle = new Bundle();
 
