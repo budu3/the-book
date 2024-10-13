@@ -14,13 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerViewAdapter
   extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<SimpleViewModel> data;
+    private ArrayList<SimpleData> data;
     private LayoutInflater layoutInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
     RecyclerViewAdapter(Context context,
-                        ArrayList<SimpleViewModel> data) {
+                        ArrayList<SimpleData> data) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
     }
@@ -38,7 +38,7 @@ public class RecyclerViewAdapter
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        SimpleViewModel movie = data.get(position);
+        SimpleData movie = data.get(position);
         holder.myImageView.setImageResource(movie.getImage());
     }
 
@@ -69,7 +69,7 @@ public class RecyclerViewAdapter
     }
 
     // convenience method for getting data at click position
-    SimpleViewModel getItem(int id) {
+    SimpleData getItem(int id) {
         return data.get(id);
     }
 

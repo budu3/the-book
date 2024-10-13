@@ -16,8 +16,8 @@ import androidx.lifecycle.MutableLiveData;
 public class HomeViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> mText;
-    private MutableLiveData<ArrayList<SimpleViewModel>> movieLiveData;
-    private ArrayList<SimpleViewModel> movieList;
+    private MutableLiveData<ArrayList<SimpleData>> movieLiveData;
+    private ArrayList<SimpleData> movieList;
     private static final String PREFS_NAME = "movie";
 
     public HomeViewModel(Application application) {
@@ -49,7 +49,7 @@ public class HomeViewModel extends AndroidViewModel {
                   .getIdentifier(poster,
                     "drawable",
                     getApplication().getPackageName());
-                SimpleViewModel svm = new SimpleViewModel();
+                SimpleData svm = new SimpleData();
                 svm.setTitle(title);
                 svm.setPoster(poster);
                 svm.setImage(imgID);
@@ -66,7 +66,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     }
 
-    public LiveData<ArrayList<SimpleViewModel>> getArrayList() {
+    public LiveData<ArrayList<SimpleData>> getArrayList() {
         return movieLiveData;
     }
 }

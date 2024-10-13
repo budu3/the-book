@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment implements
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ArrayList<SimpleViewModel> movieList = new ArrayList<>();
+        ArrayList<SimpleData> movieList = new ArrayList<>();
 
         homeViewModel =
                 ViewModelProviders.of(this)
@@ -47,10 +47,10 @@ public class HomeFragment extends Fragment implements
         home = this;
 
         homeViewModel.getArrayList().observe(getViewLifecycleOwner(),
-          new Observer<ArrayList<SimpleViewModel>>() {
+          new Observer<ArrayList<SimpleData>>() {
             @Override
             public void onChanged(
-              @Nullable ArrayList<SimpleViewModel> movieList) {
+              @Nullable ArrayList<SimpleData> movieList) {
 
                 Context context = getContext();
                 recyclerView = root.findViewById(R.id.fav_recyclerview);

@@ -1,6 +1,6 @@
 package com.thebook.bottomnav.ui.home;
 
-public class SimpleViewModel {
+public class SimpleData {
     private String poster;
     private String title;
 
