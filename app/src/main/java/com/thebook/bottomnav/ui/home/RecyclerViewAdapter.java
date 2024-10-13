@@ -6,31 +6,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.thebook.bottomnav.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
-//import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter
+  extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<SimpleViewModel> data;
     private LayoutInflater layoutInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    RecyclerViewAdapter(Context context, ArrayList<SimpleViewModel> data) {
+    RecyclerViewAdapter(Context context,
+                        ArrayList<SimpleViewModel> data) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
     }
 
     // inflates the row layout from xml when needed
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.recyclerview_item, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                         int viewType) {
+        View view = layoutInflater.inflate(
+          R.layout.recyclerview_item,
+          parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,7 +39,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         SimpleViewModel movie = data.get(position);
-        //holder.myTextView.setText(movie.getTitle());
         holder.myImageView.setImageResource(movie.getImage());
     }
 
@@ -49,21 +49,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends
+      RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView myTextView;
         ImageView myImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            //myTextView = itemView.findViewById(R.id.tvMovieName);
             myImageView = itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null)
+                mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
@@ -77,7 +78,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    // parent activity will implement this
+    // method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
