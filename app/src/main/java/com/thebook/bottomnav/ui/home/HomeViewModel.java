@@ -36,26 +36,26 @@ public class HomeViewModel extends AndroidViewModel {
         try {
             JSONArray jsonArray = new JSONArray(movieStr);
             int len = jsonArray.length();
-            //Log.d("len", String.valueOf(len));
+
+            //insert our data into movieList
             for (int i=0; i<len; i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                Log.d("bottomnav:json",
-                  jsonObject.toString(2));
+
                 String poster = jsonObject.getString("poster");
                 String title = jsonObject.getString("movie_title");
-                Log.d("bottomnav:movie_title", title);
+
                 int imgID = getApplication()
                   .getResources()
                   .getIdentifier(poster,
                     "drawable",
                     getApplication().getPackageName());
-                SimpleData svm = new SimpleData();
-                svm.setTitle(title);
-                svm.setPoster(poster);
-                svm.setImage(imgID);
-                movieList.add(svm);
-                Log.d("bottomnav:id", String.valueOf(imgID));
-                Log.d("bottomnav:movielist", movieList.toString());
+                SimpleData sd = new SimpleData();
+
+                sd.setTitle(title);
+                sd.setPoster(poster);
+                sd.setImage(imgID);
+                movieList.add(sd);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -66,6 +66,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     }
 
+    //Our View will retreive the data using LiveData
     public LiveData<ArrayList<SimpleData>> getArrayList() {
         return movieLiveData;
     }
