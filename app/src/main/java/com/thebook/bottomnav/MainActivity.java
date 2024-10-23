@@ -18,7 +18,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
-    //todo: look at https://github.com/willowtreeapps/SimpleRecyclerViewDemo
     private static final String PREFS_NAME = "movie";
 
     @Override
@@ -26,14 +25,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+
+        AppBarConfiguration appBarConfiguration =
+          new AppBarConfiguration.Builder(
+            R.id.navigation_home,
+            R.id.navigation_dashboard,
+            R.id.navigation_notifications)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        NavController navController = Navigation
+          .findNavController(this, R.id.nav_host_fragment);
+        NavigationUI
+          .setupActionBarWithNavController(
+            this,
+            navController,
+            appBarConfiguration);
+        NavigationUI
+          .setupWithNavController(navView, navController);
 
         try {
             saveToSharedPreferences(this);
@@ -44,13 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController =
+          Navigation.findNavController(this, R.id.nav_host_fragment);
         return navController.navigateUp();
     }
 
     //user defined method
-    private void saveToSharedPreferences(Context context) throws JSONException {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    private void saveToSharedPreferences(Context context)
+      throws JSONException {
+        SharedPreferences prefs = context.getSharedPreferences(
+          PREFS_NAME,
+          Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = prefs.edit();
 
         String movieJSONArray = "[{" +
@@ -59,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 "\"genres\": \"Action|Adventure|Fantasy|Sci-Fi\"," +
                 "\"actor_1_name\": \"CCH Pounder\"," +
                 "\"movie_title\": \"Avatar\"," +
-                "\"plot_keywords\": \"avatar|future|marine|native|paraplegic\"," +
+                "\"plot_keywords\": \"avatar|future|marine|" +
+          "native|paraplegic\"," +
                 "\"title_year\": 2009," +
                 "\"poster\": \"tt37\"" +
                 "},"
@@ -69,8 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 "        \"actor_2_name\": \"Orlando Bloom\"," +
                 "    \"genres\": \"Action|Adventure|Fantasy\"," +
                 "    \"actor_1_name\": \"Johnny Depp\"," +
-                "    \"movie_title\": \"Pirates of the Caribbean: At World's End\"," +
-                "    \"plot_keywords\": \"goddess|marriage ceremony|marriage proposal|pirate|singapore\"," +
+                "    \"movie_title\": \"Pirates of the Caribbean: " +
+          "At World's End\"," +
+                "    \"plot_keywords\": \"goddess|marriage ceremony|" +
+          "marriage proposal|pirate|singapore\"," +
                 "        \"title_year\": 2007," +
                 "    \"poster\": \"tt38\"" +
                 "  },"
@@ -81,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 "    \"genres\": \"Action|Adventure|Thriller\"," +
                 "    \"actor_1_name\": \"Christoph Waltz\"," +
                 "    \"movie_title\": \"Spectre\"," +
-                "    \"plot_keywords\": \"bomb|espionage|sequel|spy|terrorist\"," +
+                "    \"plot_keywords\": \"bomb|espionage|sequel|" +
+          "spy|terrorist\"," +
                 "        \"title_year\": 2015, " +
                 "    \"poster\": \"tt39\"" +
                 "  },"
@@ -92,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                 "    \"genres\": \"Action|Thriller\"," +
                 "    \"actor_1_name\": \"Tom Hardy\"," +
                 "    \"movie_title\": \"The Dark Knight Rises\"," +
-                "    \"plot_keywords\": \"deception|imprisonment|lawlessness|police officer|terrorist plot\"," +
+                "    \"plot_keywords\": \"deception|imprisonment|" +
+          "lawlessness|police officer|terrorist plot\"," +
                 "        \"title_year\": 2012," +
                 "    \"poster\": \"tt40\"" +
                 "  },"
@@ -102,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
                 "        \"actor_2_name\": \"Rob Walker\"," +
                 "    \"genres\": \"Documentary\"," +
                 "    \"actor_1_name\": \"Doug Walker\"," +
-                "    \"movie_title\": \"Star Wars: Episode VII - The Force Awakens\"," +
+                "    \"movie_title\": \"Star Wars: Episode VII - " +
+          "The Force Awakens\"," +
                 "    \"plot_keywords\": \"\"," +
                 "        \"title_year\": \"\"," +
                 "    \"poster\": \"tt41\"" +
@@ -114,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 "    \"genres\": \"Action|Adventure|Sci-Fi\"," +
                 "    \"actor_1_name\": \"Daryl Sabara\"," +
                 "    \"movie_title\": \"John Carter\"," +
-                "    \"plot_keywords\": \"alien|american civil war|male nipple|mars|princess\"," +
+                "    \"plot_keywords\": \"alien|american civil war|" +
+          "mars|princess\"," +
                 "        \"title_year\": 2012," +
                 "    \"poster\": \"tt42\"" +
                 "  }]";
