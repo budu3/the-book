@@ -6,27 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.thebook.bottomnav.R;
-
 import java.util.ArrayList;
-
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends
+  RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<SimpleViewModel> data;
     private LayoutInflater layoutInflater;
     private ItemClickListener mClickListener;
 
-    RecyclerViewAdapter(Context context, ArrayList<SimpleViewModel> data) {
+    RecyclerViewAdapter(Context context,
+                        ArrayList<SimpleViewModel> data) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.recyclerview_item, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                         int viewType) {
+        View view = layoutInflater.inflate(R.layout.recyclerview_item,
+          parent, false);
         return new ViewHolder(view);
     }
 
@@ -41,7 +42,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder
+      implements View.OnClickListener {
 
         TextView myTextView;
         ImageView myImageView;
@@ -54,7 +56,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) mClickListener.onItemClick(
+              view,
+              getAdapterPosition());
         }
     }
 
