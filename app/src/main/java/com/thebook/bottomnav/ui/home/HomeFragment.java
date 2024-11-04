@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment
   implements RecyclerViewAdapter.ItemClickListener{
-
     private HomeViewModel homeViewModel;
     private ImageView imageView;
     private  RecyclerView recyclerView;
@@ -91,7 +90,6 @@ public class HomeFragment extends Fragment
 
     //@Override
     public void onClick(View view) {
-        //todo: pass on movie data for movie selected to the Info Fragment
         String resourceName;
         Bundle bundle = new Bundle();
 
