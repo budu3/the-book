@@ -38,7 +38,9 @@ public class SimpleService extends Service {
 
     @Override
     public void onCreate() {
-        HandlerThread thread = new HandlerThread("ServiceStartArguments", Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread thread = new HandlerThread(
+          "ServiceStartArguments",
+          Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
 
         serviceLooper = thread.getLooper();
@@ -47,7 +49,9 @@ public class SimpleService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Service has started", LENGTH_LONG).show();
+        Toast.makeText(
+          this, "Service has started",
+          LENGTH_LONG).show();
         Log.d("Service->","Service has started");
 
         Message msg = serviceHandler.obtainMessage();
@@ -58,7 +62,9 @@ public class SimpleService extends Service {
     }
 
     public void onDestroy(){
-        Toast.makeText(this, "Service has ended", LENGTH_LONG);
+        Toast.makeText(
+          this, "Service has ended",
+          LENGTH_LONG);
         Log.d("Service->","Service has ended");
     }
 
