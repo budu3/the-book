@@ -41,15 +41,15 @@ public class HomeViewModel extends AndroidViewModel {
         final OneTimeWorkRequest imageRequest = new OneTimeWorkRequest.Builder(MyImageWorker.class).build();
 
         WorkManager.getInstance().beginWith(workRequest).then(imageRequest).enqueue();
+        //WorkManager.getInstance().enqueue(imageRequest);
         WorkManager.getInstance().getWorkInfoByIdLiveData(workRequest.getId()).observeForever(new Observer<WorkInfo>() {
             String output = "";
             @Override
             public void onChanged(WorkInfo workInfo) {
-                Log.d("HomeFragment->", "" + workInfo.getState());
+                Log.d("HomeViewModel->", "" + workInfo.getState());
                 if (workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-                    Log.d("HomeFragment->", "I got here");
                     output = workInfo.getOutputData().getString("RemoteData");
-                    Log.d("HomeFragment->",output);
+                    Log.d("HomeViewModel->",output);
 
                     try {
                         JSONArray jsonArray = new JSONArray(output);
