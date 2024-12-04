@@ -1,19 +1,18 @@
 package com.thebook.bottomnav.ui.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import com.thebook.bottomnav.R;
 
@@ -33,9 +32,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        final View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater
+          .inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(),
+          new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 //build the images here
@@ -54,29 +55,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         poster = jsonObject.getString("poster");
 
                         // get id for an image view
-                        int id = getResources().getIdentifier("imageView" + i,"id",
+                        int id = getResources()
+                          .getIdentifier("imageView" + i,"id",
                                 getActivity().getPackageName());
                         ImageView imgView = root.findViewById(id);
 
                         //get id for an image
-                        int imgID = getResources().getIdentifier(poster , "drawable" ,
+                        int imgID = getResources()
+                          .getIdentifier(poster , "drawable" ,
                                 getActivity().getPackageName()) ;
                         imgView.setImageResource(imgID);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //Log.d("SharedPref", poster);
-
             }
         });
 
-        //imageView = root.findViewById(R.id.imageView4);
-        //imageView.setOnClickListener(this);
-
         //add onClickListener to scrolling images
         for (int i=4; i<16; i++){
-            int id = getResources().getIdentifier("imageView" + i,"id", getActivity().getPackageName());
+            int id = getResources()
+              .getIdentifier("imageView" + i,"id",
+                getActivity().getPackageName());
             ImageView imgView = root.findViewById(id);
             imgView.setOnClickListener(this);
         }
@@ -85,11 +85,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        String resourceName;
-        Bundle bundle = new Bundle();
-
-        resourceName = view.getResources().getResourceName(view.getId()).split("/")[1];
-        bundle.putString("id", resourceName);
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_info, bundle);
+        Toast.makeText(getContext(),"You clicked", Toast.LENGTH_SHORT).show();
     }
 }

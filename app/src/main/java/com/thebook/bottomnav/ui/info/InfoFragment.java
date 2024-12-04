@@ -27,12 +27,14 @@ public class InfoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.info_fragment, container, false);
         final TextView textView = root.findViewById(R.id.text_info);
         mViewModel = new ViewModelProvider(this).get(InfoViewModel.class);
-        mViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mViewModel.getText().observe(getViewLifecycleOwner(),
+          new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -45,8 +47,8 @@ public class InfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(InfoViewModel.class);
-        // TODO: Use the ViewModel
+        mViewModel = ViewModelProviders.of(this)
+          .get(InfoViewModel.class);
     }
 
 

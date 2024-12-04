@@ -21,7 +21,7 @@ public class InfoViewModel extends AndroidViewModel {
         mText = new MutableLiveData<>();
 
         SharedPreferences.Editor preferencesEditor = prefs.edit();
-        preferencesEditor.putString("description", "This is a dash board fragment");
+        preferencesEditor.putString("description", "This is an info fragment");
         //preferencesEditor.putInt("color", mCurrentColor);
         preferencesEditor.apply();
 
