@@ -22,16 +22,19 @@ import org.json.JSONObject;
 
 import java.util.Random;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment
+  implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
     private ImageView imageView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
 
         homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+                ViewModelProviders.of(this)
+                  .get(HomeViewModel.class);
         final View root = inflater
           .inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
@@ -51,7 +54,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
                     for (int i=4; i<16; i++){
                         rand = new Random().nextInt(length - 1);
-                        JSONObject jsonObject = jsonArray.getJSONObject(rand);
+                        JSONObject jsonObject =
+                          jsonArray.getJSONObject(rand);
                         poster = jsonObject.getString("poster");
 
                         // get id for an image view
@@ -85,6 +89,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getContext(),"You clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),
+          "You clicked", Toast.LENGTH_SHORT).show();
     }
 }

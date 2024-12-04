@@ -21,9 +21,9 @@ public class HomeViewModel extends AndroidViewModel {
     public HomeViewModel(Application application) {
         super(application);
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
-
-        SharedPreferences prefs = getApplication().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        
+        SharedPreferences prefs = getApplication()
+          .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String movieStr = prefs.getString("movie1","");
 
         mText.setValue(movieStr);
