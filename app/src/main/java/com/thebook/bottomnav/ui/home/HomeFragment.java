@@ -53,7 +53,8 @@ public class HomeFragment extends Fragment implements
               @Nullable ArrayList<SimpleData> movieList) {
 
                 Context context = getContext();
-                recyclerView = root.findViewById(R.id.fav_recyclerview);
+                recyclerView = root
+                  .findViewById(R.id.fav_recyclerview);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(
                   context,
@@ -63,7 +64,8 @@ public class HomeFragment extends Fragment implements
                 adapter.setClickListener(home);
                 recyclerView.setAdapter(adapter);
 
-                recyclerView = root.findViewById(R.id.drama_recyclerview);
+                recyclerView = root
+                  .findViewById(R.id.drama_recyclerview);
                 recyclerView.setLayoutManager(
                   new LinearLayoutManager(
                     context,
@@ -74,7 +76,8 @@ public class HomeFragment extends Fragment implements
                 recyclerView.setAdapter(adapter);
                 recyclerView.scrollToPosition(2);
 
-                recyclerView = root.findViewById(R.id.comedy_recyclerview);
+                recyclerView = root
+                  .findViewById(R.id.comedy_recyclerview);
                 recyclerView.setLayoutManager(
                   new LinearLayoutManager(
                     context,
