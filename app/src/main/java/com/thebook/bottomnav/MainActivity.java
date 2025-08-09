@@ -3,13 +3,11 @@ package com.thebook.bottomnav;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.thebook.bottomnav.data.MovieData;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -17,31 +15,54 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+/**
+ * MainActivity - The main entry point of the app
+ * 
+ * This activity sets up the bottom navigation UI and initializes the app's movie data.
+ * It uses Android's Navigation Component to manage fragment transitions between
+ * Home, Dashboard, and Notifications screens.
+ */
 public class MainActivity extends AppCompatActivity {
+    // SharedPreferences key for storing movie data
     private static final String PREFS_NAME = "movie";
 
+    /**
+     * Called when the activity is first created.
+     * Sets up the bottom navigation, configures the Navigation Component,
+     * and initializes movie data in SharedPreferences.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        
+        // Get reference to the bottom navigation view
+        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
 
+        // Configure which destinations are considered top-level (no back arrow)
         AppBarConfiguration appBarConfiguration =
           new AppBarConfiguration.Builder(
             R.id.navigation_home,
-            R.id.navigation_dashboard,
+            R.id.navigation_dashboard, 
             R.id.navigation_notifications)
                 .build();
+        
+        // Get the NavController that manages fragment navigation
         NavController navController = Navigation
           .findNavController(this, R.id.nav_host_fragment);
+        
+        // Connect the action bar to the navigation controller
         NavigationUI
           .setupActionBarWithNavController(
             this,
             navController,
             appBarConfiguration);
+        
+        // Connect the bottom navigation to the navigation controller
         NavigationUI
           .setupWithNavController(navView, navController);
 
+        // Initialize movie data in SharedPreferences for the app to use
         try {
             saveToSharedPreferences(this);
         } catch (JSONException e) {
@@ -49,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the user presses the back button in the action bar.
+     * Delegates navigation to the NavController.
+     */
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController =
@@ -56,90 +81,23 @@ public class MainActivity extends AppCompatActivity {
         return navController.navigateUp();
     }
 
-    //user defined method
-    private void saveToSharedPreferences(Context context)
-      throws JSONException {
-        SharedPreferences prefs = context.getSharedPreferences(
-          PREFS_NAME,
-          Context.MODE_PRIVATE);
+    /**
+     * Saves movie data to SharedPreferences for persistence across app sessions.
+     * This data will be read by HomeViewModel to populate the movie lists.
+     * 
+     * @param context The application context
+     * @throws JSONException if there's an error processing the JSON data
+     */
+    private void saveToSharedPreferences(Context context) throws JSONException {
+        // Get SharedPreferences instance for storing movie data
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = prefs.edit();
-
-        String movieJSONArray = "[{" +
-                "\"director_name\": \"James Cameron\"," +
-                "\"actor_2_name\": \"Joel David Moore\"," +
-                "\"genres\": \"Action|Adventure|Fantasy|Sci-Fi\"," +
-                "\"actor_1_name\": \"CCH Pounder\"," +
-                "\"movie_title\": \"Avatar\"," +
-                "\"plot_keywords\": \"avatar|future|marine|" +
-          "native|paraplegic\"," +
-                "\"title_year\": 2009," +
-                "\"poster\": \"tt37\"" +
-                "},"
-
-                + "{" +
-                "    \"director_name\": \"Gore Verbinski\"," +
-                "        \"actor_2_name\": \"Orlando Bloom\"," +
-                "    \"genres\": \"Action|Adventure|Fantasy\"," +
-                "    \"actor_1_name\": \"Johnny Depp\"," +
-                "    \"movie_title\": \"Pirates of the Caribbean: " +
-          "At World's End\"," +
-                "    \"plot_keywords\": \"goddess|marriage ceremony|" +
-          "marriage proposal|pirate|singapore\"," +
-                "        \"title_year\": 2007," +
-                "    \"poster\": \"tt38\"" +
-                "  },"
-
-                + "{" +
-                "    \"director_name\": \"Sam Mendes\"," +
-                "        \"actor_2_name\": \"Rory Kinnear\"," +
-                "    \"genres\": \"Action|Adventure|Thriller\"," +
-                "    \"actor_1_name\": \"Christoph Waltz\"," +
-                "    \"movie_title\": \"Spectre\"," +
-                "    \"plot_keywords\": \"bomb|espionage|sequel|" +
-          "spy|terrorist\"," +
-                "        \"title_year\": 2015, " +
-                "    \"poster\": \"tt39\"" +
-                "  },"
-
-                +"{" +
-                "    \"director_name\": \"Christopher Nolan\"," +
-                "        \"actor_2_name\": \"Christian Bale\"," +
-                "    \"genres\": \"Action|Thriller\"," +
-                "    \"actor_1_name\": \"Tom Hardy\"," +
-                "    \"movie_title\": \"The Dark Knight Rises\"," +
-                "    \"plot_keywords\": \"deception|imprisonment|" +
-          "lawlessness|police officer|terrorist plot\"," +
-                "        \"title_year\": 2012," +
-                "    \"poster\": \"tt40\"" +
-                "  },"
-
-                + "{" +
-                "    \"director_name\": \"Doug Walker\"," +
-                "        \"actor_2_name\": \"Rob Walker\"," +
-                "    \"genres\": \"Documentary\"," +
-                "    \"actor_1_name\": \"Doug Walker\"," +
-                "    \"movie_title\": \"Star Wars: Episode VII - " +
-          "The Force Awakens\"," +
-                "    \"plot_keywords\": \"\"," +
-                "        \"title_year\": \"\"," +
-                "    \"poster\": \"tt41\"" +
-                "  },"
-
-                + "{" +
-                "    \"director_name\": \"Andrew Stanton\"," +
-                "        \"actor_2_name\": \"Samantha Morton\"," +
-                "    \"genres\": \"Action|Adventure|Sci-Fi\"," +
-                "    \"actor_1_name\": \"Daryl Sabara\"," +
-                "    \"movie_title\": \"John Carter\"," +
-                "    \"plot_keywords\": \"alien|american civil war|" +
-          "mars|princess\"," +
-                "        \"title_year\": 2012," +
-                "    \"poster\": \"tt42\"" +
-                "  }]";
-
-        preferencesEditor.putString("movie1",movieJSONArray);
+        
+        // Store the movie JSON array from MovieData class
+        preferencesEditor.putString("movie1", MovieData.MOVIE_JSON_ARRAY);
+        
+        // Apply changes asynchronously
         preferencesEditor.apply();
-
     }
 
 }

@@ -10,18 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.thebook.bottomnav.R;
 
+/**
+ * NotificationsFragment - Simple notifications screen
+ * 
+ * This fragment represents the Notifications tab in the bottom navigation.
+ * Currently displays basic text content from NotificationsViewModel.
+ * Could be extended to show actual notifications, alerts, or messaging features.
+ */
 public class NotificationsFragment extends Fragment {
 
+    // ViewModel for managing notifications data
     private NotificationsViewModel notificationsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+        notificationsViewModel = new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
         notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

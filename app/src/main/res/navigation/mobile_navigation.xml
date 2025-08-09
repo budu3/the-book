@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Navigation Graph
+    Defines the navigation flow between fragments in the movie app
+-->
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,35 +10,40 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <!-- Home Fragment - Main movie browsing screen -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.thebook.bottomnav.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_navigation_info"
             app:destination="@id/navigation_info" />
     </fragment>
 
+    <!-- Dashboard Fragment - Statistics and overview screen -->
     <fragment
         android:id="@+id/navigation_dashboard"
-android:name="com.thebook.bottomnav.ui.dashboard.DashboardFragment"
+        android:name="com.thebook.bottomnav.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
+    <!-- Notifications Fragment - Alerts and notifications screen -->
     <fragment
         android:id="@+id/navigation_notifications"
-android:name=
-    "com.thebook.bottomnav.ui.notifications.NotificationsFragment"
+        android:name="com.thebook.bottomnav.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <!-- Info Fragment - Movie details screen -->
     <fragment
         android:id="@+id/navigation_info"
         android:name="com.thebook.bottomnav.ui.info.InfoFragment"
-        android:label="info_fragment"
-        tools:layout="@layout/info_fragment" >
+        android:label="@string/movie_info_title"
+        tools:layout="@layout/info_fragment">
         <action
             android:id="@+id/action_navigation_info_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+
 </navigation>

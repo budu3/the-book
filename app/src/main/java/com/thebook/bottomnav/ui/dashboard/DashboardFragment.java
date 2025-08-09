@@ -15,8 +15,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.thebook.bottomnav.R;
 
+/**
+ * DashboardFragment - Simple dashboard screen
+ * 
+ * This fragment represents the Dashboard tab in the bottom navigation.
+ * Currently displays basic text content from DashboardViewModel.
+ * Could be extended to show dashboard-specific information like statistics,
+ * summaries, or user-specific data.
+ */
 public class DashboardFragment extends Fragment {
 
+    // ViewModel for managing dashboard data
     private DashboardViewModel dashboardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

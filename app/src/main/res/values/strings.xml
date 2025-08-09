@@ -1,6 +1,25 @@
 <resources>
-    <string name="app_name">Bottom Nav</string>
+    <!-- App Name -->
+    <string name="app_name">The Book - Movie App</string>
+    
+    <!-- Navigation Titles -->
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    
+    <!-- Home Screen -->
+    <string name="favorites_title">Favorites</string>
+    <string name="drama_title">Drama</string>
+    <string name="comedy_title">Comedy</string>
+    
+    <!-- Content Descriptions -->
+    <string name="app_logo_description">App logo</string>
+    <string name="featured_movie_description">Featured movie banner</string>
+    <string name="movie_poster_description">Movie poster</string>
+    <string name="dashboard_icon_description">Dashboard icon</string>
+    <string name="notifications_icon_description">Notifications icon</string>
+    
+    <!-- Info Screen -->
+    <string name="movie_info_title">Movie Information</string>
+    <string name="back_button_text">Back to Movies</string>
 </resources>
